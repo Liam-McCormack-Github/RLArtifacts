@@ -14,19 +14,14 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import javax.annotation.Nonnull;
-
-import static artifacts.Artifacts.*;
-
-@SuppressWarnings("unused")
-@Mod(modid = MODID, name = MODNAME, version = VERSION, dependencies = "required-after:baubles;after:artemislib", updateJSON = "https://raw.githubusercontent.com/ochotonida/artifacts/1.12/update.json")
+@Mod(modid = Artifacts.MODID, name = Artifacts.MODNAME, version = Artifacts.VERSION, dependencies = "required-after:baubles")
 public class Artifacts {
 
     public static final String MODID = "artifacts";
-    public static final String MODNAME = "Artifacts";
-    public static final String VERSION = "1.12.2-1.2.3";
+    public static final String MODNAME = "RLArtifacts";
+    public static final String VERSION = "1.0.0";
 
-    public static final CreativeTab CREATIVE_TAB = new CreativeTab();
+    public static final CreativeTabs ARTIFACTS_TAB = new ArtifactTab();
 
     @Mod.Instance(MODID)
     public static Artifacts instance;
@@ -37,7 +32,6 @@ public class Artifacts {
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
         proxy.preInit();
-        ModCompat.preInit();
         ModEntities.init();
     }
 
@@ -45,10 +39,8 @@ public class Artifacts {
     public static void init(FMLInitializationEvent event) {
         proxy.init();
         ModNetworkHandler.init();
-        ModRecipes.init();
         ModLootTables.init();
         ModWorldGen.init();
-        ModCompat.init();
     }
 
     @Mod.EventHandler
@@ -75,16 +67,13 @@ public class Artifacts {
         }
     }
 
-    public static class CreativeTab extends CreativeTabs {
+    public static class ArtifactTab extends CreativeTabs {
 
-        public CreativeTab() {
+        public ArtifactTab() {
             super(MODID + ".creativetab");
         }
 
         @Override
-        @Nonnull
-        public ItemStack getTabIconItem() {
-            return new ItemStack(ModItems.PANIC_NECKLACE);
-        }
+        public ItemStack createIcon() { return new ItemStack(ModItems.PANIC_NECKLACE); }
     }
 }

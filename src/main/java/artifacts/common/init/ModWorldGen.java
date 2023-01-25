@@ -1,7 +1,6 @@
 package artifacts.common.init;
 
 import artifacts.common.ModConfig;
-import artifacts.common.worldgen.WorldGenOceanShrine;
 import artifacts.common.worldgen.WorldGenUndergroundChest;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -12,7 +11,6 @@ public class ModWorldGen {
 
     public static void init() {
         GameRegistry.registerWorldGenerator(new WorldGenUndergroundChest(getDimensionList(ModConfig.general.undergroundChestDimensions)), 0);
-        GameRegistry.registerWorldGenerator(new WorldGenOceanShrine(getDimensionList(ModConfig.general.underwaterShrineDimensions)), 0);
     }
 
     private static List<Integer> getDimensionList(String dimensionString) {

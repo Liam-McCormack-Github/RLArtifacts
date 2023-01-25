@@ -2,14 +2,12 @@ package artifacts.common.init;
 
 import artifacts.Artifacts;
 import artifacts.common.loot.functions.AddRandomEffect;
-import artifacts.common.loot.functions.GenerateEverlastingFish;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 
 public class ModLootTables {
 
     public static void init() {
-        LootFunctionManager.registerFunction(new GenerateEverlastingFish.Serializer());
         LootFunctionManager.registerFunction(new AddRandomEffect.Serializer());
     }
 

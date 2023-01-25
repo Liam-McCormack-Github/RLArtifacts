@@ -40,8 +40,8 @@ public class BaubleStarCloak extends BaubleBase implements IRenderCloak {
 
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
-        if (!event.getEntity().world.isRemote && event.getEntityLiving() instanceof EntityPlayer && BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntityLiving(), ModItems.STAR_CLOAK) != -1) {
-            if (event.getEntityLiving().world.canSeeSky(event.getEntityLiving().getPosition())) {
+        if(!event.getEntity().world.isRemote && event.getEntityLiving() instanceof EntityPlayer && BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntityLiving(), ModItems.STAR_CLOAK) != -1) {
+            if (event.getSource().getTrueSource() != null && event.getEntityLiving().world.canSeeSky(event.getEntityLiving().getPosition())) {
                 int stars = ModConfig.general.starCloakStarsMin;
                 if (ModConfig.general.starCloakStarsMax > ModConfig.general.starCloakStarsMin) {
                     stars += event.getEntityLiving().getRNG().nextInt(ModConfig.general.starCloakStarsMax - ModConfig.general.starCloakStarsMin + 1);

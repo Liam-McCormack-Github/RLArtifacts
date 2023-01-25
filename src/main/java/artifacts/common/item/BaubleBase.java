@@ -43,8 +43,8 @@ public class BaubleBase extends Item implements IBauble {
     public BaubleBase(String name, BaubleType type) {
         super();
         setRegistryName(name);
-        setUnlocalizedName(Artifacts.MODID + "." + name);
-        setCreativeTab(Artifacts.CREATIVE_TAB);
+        setTranslationKey(Artifacts.MODID + "." + name);
+        setCreativeTab(Artifacts.ARTIFACTS_TAB);
         setMaxStackSize(1);
         this.type = type;
         this.name = name;

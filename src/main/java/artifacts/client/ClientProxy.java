@@ -45,16 +45,10 @@ public class ClientProxy implements IProxy {
 
         RenderPlayer renderPlayer = skinMap.get("default");
         renderPlayer.addLayer(new LayerGloves(false, renderPlayer));
-        renderPlayer.addLayer(new LayerSnorkel(renderPlayer));
         renderPlayer.addLayer(new LayerDrinkingHat(renderPlayer));
-        renderPlayer.addLayer(new LayerNightVisionGoggles(renderPlayer));
-        renderPlayer.addLayer(new LayerShirt(renderPlayer, false));
 
         renderPlayer = skinMap.get("slim");
         renderPlayer.addLayer(new LayerGloves(true, renderPlayer));
-        renderPlayer.addLayer(new LayerSnorkel(renderPlayer));
         renderPlayer.addLayer(new LayerDrinkingHat(renderPlayer));
-        renderPlayer.addLayer(new LayerNightVisionGoggles(renderPlayer));
-        renderPlayer.addLayer(new LayerShirt(renderPlayer, true));
     }
 }

@@ -50,7 +50,7 @@ public class WorldGenUndergroundChest implements IWorldGenerator {
             if (random.nextDouble() < ModConfig.general.undergroundChestMimicRatio) {
                 EntityMimic mimic = new EntityMimic(world);
                 mimic.setPositionAndRotation(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, random.nextInt(4) * 90, 0);
-                mimic.setDormant();
+                mimic.setDormant(true);
                 mimic.enablePersistence();
                 world.spawnEntity(mimic);
             } else {

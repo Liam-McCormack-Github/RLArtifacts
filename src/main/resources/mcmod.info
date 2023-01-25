@@ -1,16 +1,15 @@
 [
 {
-  "modid": "artifacts",
-  "name": "Artifacts",
-  "description": "More exploration fun!",
+  "modid": "${mod_id}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "https://github.com/ochotonida/artifacts",
-  "updateUrl": "https://raw.githubusercontent.com/ochotonida/artifacts/1.12/update.json",
-  "authorList": ["ochotonida"],
+  "url": "https://www.curseforge.com/members/fonnymunkey/projects",
+  "updateUrl": "",
+  "authorList": ${mod_author},
   "credits": "",
   "logoFile": "",
-  "screenshots": [],
   "dependencies": []
 }
 ]

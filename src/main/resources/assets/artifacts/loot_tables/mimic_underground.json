@@ -6,11 +6,6 @@
       "entries": [
         {
           "type": "item",
-          "name": "artifacts:shiny_red_balloon",
-          "weight": 4
-        },
-        {
-          "type": "item",
           "name": "artifacts:thorn_pendant",
           "weight": 4
         },
@@ -23,16 +18,6 @@
           "type": "item",
           "name": "artifacts:shock_pendant",
           "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "artifacts:cobalt_shield",
-          "weight": 4
-        },
-        {
-          "type": "item",
-          "name": "artifacts:obsidian_skull",
-          "weight": 3
         },
         {
           "type": "item",
@@ -61,18 +46,8 @@
         },
         {
           "type": "item",
-          "name": "artifacts:lucky_horseshoe",
-          "weight": 2
-        },
-        {
-          "type": "item",
           "name": "artifacts:star_cloak",
           "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "artifacts:night_vision_goggles",
-          "weight": 2
         },
         {
           "type": "item",
@@ -83,11 +58,6 @@
           "type": "item",
           "name": "artifacts:whoopie_cushion",
           "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "artifacts:tiny_shirt",
-          "weight": 2
         }
       ]
     }
