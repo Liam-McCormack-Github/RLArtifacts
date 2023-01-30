@@ -4,9 +4,6 @@ buildscript {
             url = 'https://maven.minecraftforge.net/'
         }
         maven {
-            url = 'https://repo.spongepowered.org/maven'
-        }
-        maven {
             url = 'https://maven.gofancy.wtf/releases'
         }
         mavenCentral()
@@ -14,11 +11,9 @@ buildscript {
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath group: 'wtf.gofancy.fancygradle', name: 'wtf.gofancy.fancygradle.gradle.plugin', version: '1.1.2-3'
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7.+'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'wtf.gofancy.fancygradle'
 
 fancyGradle {
@@ -44,10 +39,6 @@ minecraft {
         client {
             args "--username=InDev"
 
-            jvmArg "-Dfml.coreMods.load=${mixin_loader_class}"
-            jvmArg "-Dmixin.hotSwap=true"
-            jvmArg "-Dmixin.checks.interfaces=true"
-
             workingDirectory project.file('run')
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
@@ -55,11 +46,6 @@ minecraft {
         }
 
         server {
-
-            jvmArg "-Dfml.coreMods.load=${mixin_loader_class}"
-            jvmArg "-Dmixin.hotSwap=true"
-            jvmArg "-Dmixin.checks.interfaces=true"
-
             workingDirectory project.file('run')
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
@@ -74,30 +60,14 @@ repositories {
     maven {
         url = "https://www.cursemaven.com"
     }
-    maven {
-        url = 'https://repo.spongepowered.org/maven'
-    }
-    flatDir {
-        dirs 'libs\\'
-    }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation "org.spongepowered:mixin:0.8.5"
-    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
-
     implementation fg.deobf("curse.maven:baubles-${baubles_version}")
-
-    //compile "baubles:Baubles:1.12:1.5.2"
-    //compile "applecore:AppleCore:1.10.2-2.2.2:api"
-    //compile "curse.maven:just-enough-resources-jer-240630:2728585"
-    //compile "artemislib:ArtemisLib:1.12.2:v1.0.2"
-}
-
-mixin {
-    add sourceSets.main, "mixins.${mod_id}.refmap.json"
+    implementation fg.deobf("curse.maven:classyhats-${classyhats_version}")
+    implementation fg.deobf("curse.maven:librarianlib-${librarianlib_version}")
 }
 
 processResources {
@@ -118,11 +88,7 @@ jar {
                 "Specification-Version"   : "1",
                 "Implementation-Title"    : mod_name,
                 "Implementation-Version"  : mod_version,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "FMLCorePlugin": "${mixin_loader_class}",
-                "FMLCorePluginContainsFMLMod": "true",
-                "ForceLoadAsMod": "true", //Seems to do the opposite of what it claims to do while in dev enviroment, uncomment for build
-                "TweakClass": "org.spongepowered.asm.launch.MixinTweaker"
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }

@@ -8,21 +8,22 @@ import net.minecraft.entity.Entity;
 
 public class ModelUltimatePendant extends ModelBase {
 
-    public ModelRenderer bipedBody;
-    public ModelRenderer gem;
+    protected ModelRenderer bipedBody;
+    protected ModelRenderer gem;
 
     public ModelUltimatePendant() {
         textureWidth = 64;
         textureHeight = 32;
+
         bipedBody = new ModelRenderer(this, 0, 0);
         bipedBody.addBox(-8.5F, 0, -4, 17, 24, 8, 0);
+
         gem = new ModelRenderer(this, 50, 0);
         gem.addBox(1, -1, 0, 3, 3, 1, 0);
     }
 
     @Override
     public void render(Entity entity, float f, float f1, float ageInTicks, float f3, float f4, float scale) {
-        GlStateManager.pushMatrix();
         GlStateManager.translate(0, -0.02F, 0);
         GlStateManager.scale(7 / 6F, 7 / 6F, 7 / 6F);
         GlStateManager.scale(0.5F, 0.5F, 0.5F);
@@ -44,7 +45,5 @@ public class ModelUltimatePendant extends ModelBase {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, light, light);
         gem.render(scale);
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lastLightmapX, lastLightmapY);
-
-        GlStateManager.popMatrix();
     }
 }

@@ -12,30 +12,26 @@ import javax.annotation.Nonnull;
 
 public abstract class LayerBauble implements LayerRenderer<EntityPlayer> {
 
-    protected final RenderPlayer renderPlayer;
-    protected ModelPlayer model;
+    protected RenderPlayer renderPlayer;
+    protected ModelPlayer modelPlayer;
+    protected boolean slim;
 
     public LayerBauble(RenderPlayer renderPlayer) {
-        this(renderPlayer, new ModelPlayer(0.5F, false));
+        this(renderPlayer, false);
     }
 
-    public LayerBauble(RenderPlayer renderPlayer, ModelPlayer model) {
+    public LayerBauble(RenderPlayer renderPlayer, boolean slim) {
         this.renderPlayer = renderPlayer;
-        this.model = model;
-        model.setVisible(false);
+        this.modelPlayer = renderPlayer.getMainModel();
+        this.slim = slim;
     }
 
     @Override
     public final void doRenderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if (!Config.renderBaubles || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null) {
-            return;
-        }
+        if(!Config.renderBaubles || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null) return;
 
         GlStateManager.enableLighting();
         GlStateManager.enableRescaleNormal();
-
-        model.setModelAttributes(renderPlayer.getMainModel());
-        model.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, player);
 
         GlStateManager.pushMatrix();
         renderLayer(player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);

@@ -7,7 +7,7 @@
         {
           "type": "item",
           "name": "artifacts:thorn_pendant",
-          "weight": 4
+          "weight": 3
         },
         {
           "type": "item",
@@ -17,7 +17,7 @@
         {
           "type": "item",
           "name": "artifacts:shock_pendant",
-          "weight": 1
+          "weight": 2
         },
         {
           "type": "item",
@@ -42,12 +42,12 @@
         {
           "type": "item",
           "name": "artifacts:bottled_cloud",
-          "weight": 4
+          "weight": 3
         },
         {
           "type": "item",
           "name": "artifacts:star_cloak",
-          "weight": 1
+          "weight": 2
         },
         {
           "type": "item",
@@ -57,6 +57,31 @@
         {
           "type": "item",
           "name": "artifacts:whoopie_cushion",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "artifacts:drinking_hat",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "artifacts:antidote_vessel",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "artifacts:bubble_wrap",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "artifacts:sacrificial_amulet",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "artifacts:lucky_clover",
           "weight": 3
         }
       ]

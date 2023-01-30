@@ -19,6 +19,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -74,10 +75,15 @@ public class BaubleBase extends Item implements IBauble {
     @SuppressWarnings("deprecation")
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        if (GuiScreen.isShiftKeyDown() || ModConfig.client.alwaysShowTooltip) {
-            tooltip.add(I18n.translateToLocal("tooltip." + Artifacts.MODID + "." + name + ".name"));
-        } else {
-            tooltip.add(I18n.translateToLocal("tooltip." + Artifacts.MODID + ".shiftinfo.name"));
+        if(GuiScreen.isShiftKeyDown() || ModConfig.client.alwaysShowTooltip) {
+            tooltip.add(TextFormatting.BLUE + "" + I18n.translateToLocal("tooltip." + Artifacts.MODID + "." + name + ".name"));
+        }
+        else {
+            tooltip.add(TextFormatting.BLUE + "" + I18n.translateToLocal("tooltip." + Artifacts.MODID + ".shiftinfo.name"));
+        }
+
+        if(stack.getTagCompound() != null && stack.getTagCompound().getBoolean("phantom_thread_invisible")) {
+            tooltip.add(TextFormatting.AQUA + "" + I18n.translateToLocal("tooltip." + Artifacts.MODID + ".phantomthread.name"));
         }
     }
 

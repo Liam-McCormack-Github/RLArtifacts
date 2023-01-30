@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
@@ -38,6 +39,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -53,7 +55,7 @@ public class EntityMimic extends EntityLiving implements IMob {
         super(world);
         moveHelper = new MimicMoveHelper(this);
         setSize(14/16F, 14/16F);
-        experienceValue = 10;
+        experienceValue = 20;
     }
 
     @Nullable
@@ -81,10 +83,8 @@ public class EntityMimic extends EntityLiving implements IMob {
     }
 
     // doesn't seem to have any effect
-    @Override
-    public boolean canBePushed() {
-        return false;
-    }
+   //@Override
+    //public boolean canBePushed() { return false; }
 
     // prevent mimic from being pushed
     @Override
@@ -100,17 +100,18 @@ public class EntityMimic extends EntityLiving implements IMob {
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5);
+        getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4);
         getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100);
         getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(24);
         getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1);
+        getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0D);
     }
 
     @Override
     protected void initEntityAI() {
         this.tasks.addTask(1, new AIMimicFloat(this));
         this.tasks.addTask(2, new AIMimicAttack(this));
-        this.tasks.addTask(3, new AIMimicDisguise(this));
+        this.tasks.addTask(3, new AIMimicFaceRandom(this));
         this.tasks.addTask(5, new AIMimicHop(this));
         this.targetTasks.addTask(1, new AIMimicFindNearestPlayer(this));
     }
@@ -137,43 +138,65 @@ public class EntityMimic extends EntityLiving implements IMob {
 
         super.onUpdate();
 
-        if (isInWater()) {
+        if(isInWater() || isInLava()) {
             ticksInAir = 0;
-            if (isDormant) {
-                isDormant = false;
-            }
-        } else if (!onGround) {
+            if(isDormant) setDormant(false);
+        }
+        else if(!onGround) {
             ticksInAir++;
-        } else {
-            if (ticksInAir > 0) {
+        }
+        else {
+            if(ticksInAir > 0) {
                 playSound(getLandingSound(), getSoundVolume(), getSoundPitch());
                 ticksInAir = 0;
+            }
+            if(this.getAttackTarget() != null && this.ticksExisted%20 == 0) {
+                double d0 = this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getAttributeValue();
+                if(this.getDistanceSq(this.getAttackTarget()) > d0 * d0) this.setAttackTarget(null);
+            }
+            if(this.getAttackTarget() == null) {
+                this.setDormant(true);
             }
         }
     }
 
     @Override
+    public void applyEntityCollision(Entity entityIn) {
+        super.applyEntityCollision(entityIn);
+        System.out.println("Collided, dormat: " + this.isDormant + " ticksinAir: " + this.ticksInAir);
+        if(entityIn instanceof EntityLivingBase) this.dealDamage((EntityLivingBase)entityIn);
+    }
+    @Override
     public void onCollideWithPlayer(EntityPlayer player) {
-        if(!this.isDormant && this.getDistanceSq(player) < 1.2 && player.attackEntityFrom(DamageSource.causeMobDamage(this), (float) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue())) {
-            applyEnchantments(this, player);
+        this.dealDamage(player);
+    }
+
+    private void dealDamage(EntityLivingBase entity) {
+        System.out.println("Attempting damage distance: " + this.getDistanceSq(entity));
+        if(!this.isDormant && this.ticksInAir > 0 && this.getDistanceSq(entity) < 1.5 && entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue())) {
+            applyEnchantments(this, entity);
         }
+    }
+
+    @Override
+    public boolean isEntityInvulnerable(DamageSource source) {
+        return super.isEntityInvulnerable(source) || (this.ticksInAir <= 0 && !source.isCreativePlayer() && !source.isFireDamage() && !source.isUnblockable());
     }
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (source.isProjectile() && ticksInAir <= 0) {
-            playSound(ModSoundEvents.MIMIC_HURT, getSoundVolume(), getSoundPitch());
-            return false;
-        }
-        if (super.attackEntityFrom(source, amount)) {
-            if (source.getTrueSource() instanceof EntityPlayer) {
-                setAttackTarget((EntityLivingBase) source.getTrueSource());
-                isDormant = false;
+        if(super.attackEntityFrom(source, amount)) {
+            if(source.getTrueSource() instanceof EntityLivingBase && (!(source.getTrueSource() instanceof EntityPlayer) || !((EntityPlayer)source.getTrueSource()).capabilities.disableDamage)) {
+                setAttackTarget((EntityLivingBase)source.getTrueSource());
             }
+            setDormant(false);
             return true;
         }
         return false;
     }
+
+    @Override
+    public void setInWeb() { }
 
     @Override
     public float getEyeHeight() {
@@ -235,20 +258,24 @@ public class EntityMimic extends EntityLiving implements IMob {
 
         @SubscribeEvent(priority = EventPriority.LOW)
         public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
-            if(event.getUseBlock() == Event.Result.DENY || event.getWorld().isRemote || event.getEntityPlayer() == null || !ModConfig.general.replaceUnopenedChests) return;
+            if(event.getUseBlock() == Event.Result.DENY ||
+                    event.getWorld().isRemote ||
+                    event.getEntityPlayer() == null ||
+                    ModConfig.general.unlootedChestMimicRatio <= 0) return;
             BlockPos pos = event.getPos();
             World world = event.getWorld();
             TileEntity tile = world.getTileEntity(pos);
             Block block = world.getBlockState(pos).getBlock();
             EntityPlayer player = event.getEntityPlayer();
             if(tile instanceof TileEntityChest && block instanceof BlockChest && !player.isSpectator()) {
+                if(!Arrays.asList(ModConfig.general.unlootedChestDimensions).contains(event.getWorld().provider.getDimension())) return;
                 if(world.getBlockState(pos.up()).doesSideBlockChestOpening(world, pos.up(), EnumFacing.DOWN)) return;
-                if(((ILootContainer)tile).getLootTable() != null && world.rand.nextFloat() <= ModConfig.general.mimicReplacementChance) {
+                if(((ILootContainer)tile).getLootTable() != null && world.rand.nextFloat() <= ModConfig.general.unlootedChestMimicRatio) {
                     event.setCanceled(true);
                     ((TileEntityChest) tile).fillWithLoot(player);
-                    world.destroyBlock(pos, false);
+                    world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
                     EntityMimic mimic = new EntityMimic(world);
-                    mimic.setPosition(pos.getX()+0.5, pos.getY()+0.5, pos.getZ()+0.5);
+                    mimic.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                     mimic.enablePersistence();
                     mimic.setAwakeWithTarget(player);
                     world.spawnEntity(mimic);
@@ -258,19 +285,20 @@ public class EntityMimic extends EntityLiving implements IMob {
 
         @SubscribeEvent(priority = EventPriority.LOW)
         public static void onBlockBreak(BlockEvent.BreakEvent event) {
-            if(event.getWorld().isRemote || event.getPlayer() == null || !ModConfig.general.replaceUnopenedChests) return;
+            if(event.getWorld().isRemote || event.getPlayer() == null || ModConfig.general.unlootedChestMimicRatio <= 0) return;
             BlockPos pos = event.getPos();
             World world = event.getWorld();
             TileEntity tile = world.getTileEntity(pos);
             Block block = world.getBlockState(pos).getBlock();
             EntityPlayer player = event.getPlayer();
             if(tile instanceof TileEntityChest && block instanceof BlockChest && !player.isSpectator()) {
-                if(((ILootContainer)tile).getLootTable() != null && world.rand.nextFloat() <= ModConfig.general.mimicReplacementChance) {
+                if(!Arrays.asList(ModConfig.general.unlootedChestDimensions).contains(event.getWorld().provider.getDimension())) return;
+                if(((ILootContainer)tile).getLootTable() != null && world.rand.nextFloat() <= ModConfig.general.unlootedChestMimicRatio) {
                     event.setCanceled(true);
                     ((TileEntityChest) tile).fillWithLoot(player);
-                    world.destroyBlock(pos, false);
+                    world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
                     EntityMimic mimic = new EntityMimic(world);
-                    mimic.setPosition(pos.getX()+0.5, pos.getY()+0.5, pos.getZ()+0.5);
+                    mimic.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                     mimic.enablePersistence();
                     mimic.setAwakeWithTarget(player);
                     world.spawnEntity(mimic);
@@ -330,31 +358,34 @@ public class EntityMimic extends EntityLiving implements IMob {
         }
     }
 
-    static class AIMimicDisguise extends EntityAIBase {
+    static class AIMimicFaceRandom extends EntityAIBase {
 
         private final EntityMimic mimic;
         private int chosenDegrees;
         private int timeUntilNextFaceRandom;
 
-        public AIMimicDisguise(EntityMimic mimic) {
+        public AIMimicFaceRandom(EntityMimic mimic) {
             this.mimic = mimic;
             setMutexBits(2);
         }
 
         public boolean shouldExecute() {
-            return mimic.getAttackTarget() == null && (mimic.onGround || mimic.isInWater() || mimic.isInLava() || mimic.getActivePotionEffect(MobEffects.LEVITATION) != null);
+            return mimic.getAttackTarget() == null && (mimic.onGround || mimic.isInWater() || mimic.isInLava() || mimic.isPotionActive(MobEffects.LEVITATION));
         }
 
         public void updateTask() {
             if(--timeUntilNextFaceRandom <= 0) {
-                timeUntilNextFaceRandom = 120 + mimic.getRNG().nextInt(80);
+                timeUntilNextFaceRandom = 40 + mimic.getRNG().nextInt(60);
                 if(mimic.isDormant) {
                     chosenDegrees = Math.round(mimic.rotationYaw / 90) * 90;
                     mimic.setPosition(Math.floor(mimic.posX) + 0.5D, mimic.posY, Math.floor(mimic.posZ) + 0.5D);
                 }
-                else {
+                else if(mimic.onGround && !mimic.isInWater() && !mimic.isInLava() && !mimic.isPotionActive(MobEffects.LEVITATION)){
                     chosenDegrees = mimic.getRNG().nextInt(4) * 90;
                     if(mimic.onGround) mimic.setDormant(true);
+                }
+                else {
+                    chosenDegrees = mimic.getRNG().nextInt(4) * 90;
                 }
             }
             ((MimicMoveHelper) mimic.getMoveHelper()).setDirection(chosenDegrees, false);
@@ -380,7 +411,7 @@ public class EntityMimic extends EntityLiving implements IMob {
                 mimic.getJumpHelper().setJumping();
             }
 
-            ((MimicMoveHelper) mimic.getMoveHelper()).setSpeed(1.5);
+            ((MimicMoveHelper) mimic.getMoveHelper()).setSpeed(1.3);
         }
     }
 
@@ -398,7 +429,7 @@ public class EntityMimic extends EntityLiving implements IMob {
         }
 
         public void updateTask() {
-            ((MimicMoveHelper) mimic.getMoveHelper()).setSpeed(1.25);
+            ((MimicMoveHelper) mimic.getMoveHelper()).setSpeed(1.15);
         }
     }
 
@@ -418,7 +449,7 @@ public class EntityMimic extends EntityLiving implements IMob {
                 } else if (((EntityPlayer)target).capabilities.disableDamage) {
                     return false;
                 } else {
-                    return !((double) target.getDistance(AIMimicFindNearestPlayer.this.mimic) > AIMimicFindNearestPlayer.this.startTargetRange()) && EntityAITarget.isSuitableTarget(AIMimicFindNearestPlayer.this.mimic, (EntityLivingBase) target, false, true);
+                    return !(target.getDistanceSq(AIMimicFindNearestPlayer.this.mimic) > AIMimicFindNearestPlayer.this.startTargetRange() * AIMimicFindNearestPlayer.this.startTargetRange()) && EntityAITarget.isSuitableTarget(AIMimicFindNearestPlayer.this.mimic, (EntityLivingBase) target, false, true);
                 }
             };
             sorter = new EntityAINearestAttackableTarget.Sorter(mimic);
@@ -433,7 +464,7 @@ public class EntityMimic extends EntityLiving implements IMob {
             } else {
                 target = list.get(0);
                 if (mimic.isDormant) {
-                    mimic.isDormant = false;
+                    mimic.setDormant(false);
                 }
                 return true;
             }
@@ -481,7 +512,7 @@ public class EntityMimic extends EntityLiving implements IMob {
         }
 
         protected double startTargetRange() {
-            return 2;
+            return 4;
         }
     }
 
@@ -496,7 +527,7 @@ public class EntityMimic extends EntityLiving implements IMob {
             super(mimic);
             this.mimic = mimic;
             rotationDegrees = 180 * mimic.rotationYaw / (float) Math.PI;
-            jumpDelay = mimic.rand.nextInt(320) + 640;
+            jumpDelay = mimic.rand.nextInt(30) + 30;
         }
 
         public void setDirection(float rotation, boolean isAggressive) {
@@ -526,12 +557,12 @@ public class EntityMimic extends EntityLiving implements IMob {
                         mimic.moveStrafing = 0;
                         mimic.moveForward = 0;
                         entity.setAIMoveSpeed(0);
-
-                        if (isAggressive && jumpDelay > 20) {
-                            jumpDelay = mimic.rand.nextInt(10) + 10;
-                        }
                     } else {
-                        jumpDelay = mimic.rand.nextInt(320) + 640;
+                        jumpDelay = mimic.rand.nextInt(30) + 30;
+
+                        if(isAggressive) {
+                            jumpDelay /= 3;
+                        }
 
                         mimic.getJumpHelper().setJumping();
                         mimic.playSound(mimic.getJumpingSound(), mimic.getSoundVolume(), mimic.getSoundPitch());

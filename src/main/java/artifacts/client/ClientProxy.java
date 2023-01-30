@@ -43,12 +43,15 @@ public class ClientProxy implements IProxy {
     private static void addRenderLayers() {
         Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
 
-        RenderPlayer renderPlayer = skinMap.get("default");
-        renderPlayer.addLayer(new LayerGloves(false, renderPlayer));
-        renderPlayer.addLayer(new LayerDrinkingHat(renderPlayer));
+        addLayersToSkin(skinMap.get("default"), false);
+        addLayersToSkin(skinMap.get("slim"), true);
+    }
 
-        renderPlayer = skinMap.get("slim");
-        renderPlayer.addLayer(new LayerGloves(true, renderPlayer));
+    private static void addLayersToSkin(RenderPlayer renderPlayer, boolean slim) {
+        renderPlayer.addLayer(new LayerGloves(slim, renderPlayer));
         renderPlayer.addLayer(new LayerDrinkingHat(renderPlayer));
+        renderPlayer.addLayer(new LayerAmulet(renderPlayer));
+        renderPlayer.addLayer(new LayerBelt(renderPlayer));
+        renderPlayer.addLayer(new LayerCloak(renderPlayer));
     }
 }

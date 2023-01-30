@@ -22,21 +22,25 @@ public class ModelBottledCloud extends ModelBase {
         this.textureHeight = 32;
 
         belt = new ModelRenderer(this, 0, 0);
-        jar = new ModelRenderer(this, 0, 16);
-        lid = new ModelRenderer(this, 44, 0);
-        cloud1 = new ModelRenderer(this, 24, 0);
-        cloud2 = new ModelRenderer(this, 24, 10);
-
         belt.addBox(-4, 0, -2, 8, 12, 4);
+
+        jar = new ModelRenderer(this, 0, 16);
         jar.addBox(0, 0, 0, 7, 9, 7);
+
+        lid = new ModelRenderer(this, 44, 0);
         lid.addBox(1, -1F, 1, 5, 1, 5);
+
+        cloud1 = new ModelRenderer(this, 24, 0);
         cloud1.addBox(-2.5F, -2.5F, -2.5F, 5, 5, 5);
+
+        cloud2 = new ModelRenderer(this, 24, 10);
         cloud2.addBox(-1.5F, -1.5F, -1.5F, 3, 3, 3);
     }
 
     @Override
     public void render(Entity entity, float partialticks, float f1, float f2, float f3, float f4, float scale) {
         boolean hasPants = !((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.LEGS).isEmpty();
+        //scale = 1/16F;//Only rendered with static scale before, so, /shrug
 
         GlStateManager.scale(7 / 6F, 7 / 6F, 7 / 6F);
 
@@ -72,6 +76,5 @@ public class ModelBottledCloud extends ModelBase {
         cloud1.render(scale);
 
         GlStateManager.disableBlend();
-
     }
 }

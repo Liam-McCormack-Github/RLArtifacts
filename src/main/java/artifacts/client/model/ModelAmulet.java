@@ -7,15 +7,17 @@ import net.minecraft.entity.Entity;
 
 public class ModelAmulet extends ModelBase {
 
-    public ModelRenderer boxChain;
-    public ModelRenderer boxGem;
+    protected ModelRenderer boxChain;
+    protected ModelRenderer boxGem;
 
     public ModelAmulet() {
         this.textureWidth = 32;
         this.textureHeight = 16;
+
         this.boxChain = new ModelRenderer(this, 0, 0);
-        this.boxGem = new ModelRenderer(this, 24, 0);
         this.boxChain.addBox(-4, 0, -2, 8, 12, 4, 0);
+
+        this.boxGem = new ModelRenderer(this, 24, 0);
         this.boxGem.addBox(-0.5F, 3, -4.5F, 1, 1, 1, 0);
     }
 

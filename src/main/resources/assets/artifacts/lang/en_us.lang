@@ -1,11 +1,6 @@
-item.artifacts.shiny_red_balloon.name=Shiny Red Balloon
-item.artifacts.snorkel.name=Snorkel
 item.artifacts.shock_pendant.name=Shock Pendant
 item.artifacts.flame_pendant.name=Flame Pendant
 item.artifacts.thorn_pendant.name=Thorn Pendant
-item.artifacts.lucky_horseshoe.name=Lucky Horseshoe
-item.artifacts.cobalt_shield.name=Cobalt Shield
-item.artifacts.obsidian_skull.name=Obsidian Skull
 item.artifacts.panic_necklace.name=Panic Necklace
 item.artifacts.whoopie_cushion.name=Whoopie Cushion
 item.artifacts.bottled_cloud.name=Cloud in a Bottle
@@ -18,39 +13,17 @@ item.artifacts.fire_gauntlet.name=Fire Gauntlet
 item.artifacts.drinking_hat.name=Drinking Hat
 item.artifacts.star_cloak.name=Star Cloak
 item.artifacts.pocket_piston.name=Pocket Piston
-item.artifacts.night_vision_goggles.name=Night Vision Goggles
-item.artifacts.ultimate_pendant.name=Pendant of Ultimate Wrath
-item.artifacts.tiny_shirt.name=Tiny Shirt
-
-item.artifacts.everlasting_porkchop.name=Everlasting Raw Porkchop
-item.artifacts.everlasting_cooked_porkchop.name=Everlasting Cooked Porkchop
-item.artifacts.everlasting_beef.name=Everlasting Raw Beef
-item.artifacts.everlasting_cooked_beef.name=Everlasting Steak
-item.artifacts.everlasting_chicken.name=Everlasting Raw Chicken
-item.artifacts.everlasting_cooked_chicken.name=Everlasting Cooked Chicken
-item.artifacts.everlasting_rotten_flesh.name=Everlasting Rotten Flesh
-item.artifacts.everlasting_spider_eye.name=Everlasting Spider Eye
-item.artifacts.everlasting_rabbit.name=Everlasting Raw Rabbit
-item.artifacts.everlasting_cooked_rabbit.name=Everlasting Cooked Rabbit
-item.artifacts.everlasting_mutton.name=Everlasting Raw Mutton
-item.artifacts.everlasting_cooked_mutton.name=Everlasting Cooked Mutton
-item.artifacts.everlasting_rabbit_stew.name=Everlasting Rabbit Stew
-item.artifacts.everlasting_cod.name=Everlasting Raw Cod
-item.artifacts.everlasting_cooked_cod.name=Everlasting Cooked Cod
-item.artifacts.everlasting_salmon.name=Everlasting Raw Salmon
-item.artifacts.everlasting_cooked_salmon.name=Everlasting Cooked Salmon
-item.artifacts.everlasting_clownfish.name=Everlasting Clownfish
+item.artifacts.ultimate_pendant.name=Pendant of Ultimate Retribution
+item.artifacts.antidote_vessel.name=Antidote Vessel
+item.artifacts.bubble_wrap.name=Bubble Wrap
+item.artifacts.sacrificial_amulet.name=Sacrificial Amulet
+item.artifacts.lucky_clover.name=Lucky Clover
 
 tooltip.artifacts.shiftinfo.name=<Press shift for more info>
-tooltip.artifacts.artemislibinfo.name=This item requires ArtemisLib to function!
-tooltip.artifacts.shiny_red_balloon.name=Allows the wearer to jump higher
-tooltip.artifacts.snorkel.name=Allows the wearer to breathe underwater
+
 tooltip.artifacts.shock_pendant.name=Has a chance to strike attackers with lightning when worn
 tooltip.artifacts.flame_pendant.name=Has a chance to light attackers on fire when worn
 tooltip.artifacts.thorn_pendant.name=Has a chance to damage attackers when worn
-tooltip.artifacts.lucky_horseshoe.name=Negates fall damage from any height when worn
-tooltip.artifacts.cobalt_shield.name=Prevents knockback from all attacks when worn
-tooltip.artifacts.obsidian_skull.name=Applies fire resistance to the wearer when hurt by fire
 tooltip.artifacts.panic_necklace.name=Increases the wearer's movement speed after taking damage
 tooltip.artifacts.whoopie_cushion.name=Increases the wearer's flatulence
 tooltip.artifacts.bottled_cloud.name=Allows the wearer to double jump
@@ -63,15 +36,23 @@ tooltip.artifacts.fire_gauntlet.name=Increases meelee attack damage and speed wh
 tooltip.artifacts.drinking_hat.name=Decreases the time it takes to drink drinkable items when worn
 tooltip.artifacts.star_cloak.name=When worn, causes stars to fall when injured
 tooltip.artifacts.pocket_piston.name=Increases knockback from all attacks when worn
-tooltip.artifacts.night_vision_goggles.name=Grants the wearer night vision
 tooltip.artifacts.ultimate_pendant.name=When worn, has a chance to damage attackers, light them on fire, and strike them with lightning
-tooltip.artifacts.tiny_shirt.name=Shrinks the player when worn
+tooltip.artifacts.antidote_vessel.name=When worn, reduces the maximum duration and amplifier of negative effects
+tooltip.artifacts.bubble_wrap.name=When worn, prevents collision damage
+tooltip.artifacts.sacrificial_amulet.name=The amulet thirsts for more
+tooltip.artifacts.lucky_clover.name=Makes you feel slightly luckier
+
+tooltip.artifacts.sacrificial_amulet.charge=Amulet Charge
+
+tooltip.artifacts.phantomthread.name=Lined with Phantom Thread
 
 entity.artifacts.mimic.name=Mimic
 entity.artifacts.hallow_star.name=Hallow Star
 
 death.attack.artifacts.hallow_star=%s was hit by falling star
 death.attack.artifacts.hallow_star.player=%1$s was hit by %2$s's falling star
+
+death.attack.artifacts.mimic=%s was chomped by a chest
 
 itemGroup.artifacts.creativetab=Artifacts
 

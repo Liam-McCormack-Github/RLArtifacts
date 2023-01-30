@@ -108,11 +108,9 @@ public class EntityHallowStar extends Entity {
     }
 
     protected void onImpact(RayTraceResult result) {
-        if (!this.world.isRemote && result.entityHit != shootingEntity && !(result.entityHit instanceof EntityHallowStar)) {
-            if (result.entityHit != null) {
-                if (!result.entityHit.isImmuneToFire()) {
-                    result.entityHit.attackEntityFrom(new EntityDamageSourceIndirect(Artifacts.MODID + ".hallow_star", this, shootingEntity).setProjectile(), ModConfig.general.starCloakDamage);
-                }
+        if(!this.world.isRemote && result.entityHit != shootingEntity && !(result.entityHit instanceof EntityHallowStar)) {
+            if(result.entityHit instanceof EntityLivingBase) {
+                result.entityHit.attackEntityFrom(new EntityDamageSourceIndirect(Artifacts.MODID + ".hallow_star", this, shootingEntity).setProjectile(), ModConfig.general.starCloakDamage);
             }
             world.setEntityState(this, (byte) 3);
         }

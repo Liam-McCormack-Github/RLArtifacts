@@ -1,7 +1,26 @@
 {
   "fart": {
     "sounds": [
-      "artifacts:fart"
+		{
+			"name": "artifacts:farts/fart1",
+			"weight": 10
+		},
+		{
+			"name": "artifacts:farts/fart2",
+			"weight": 10
+		},
+		{
+			"name": "artifacts:farts/fart3",
+			"weight": 10
+		},
+		{
+			"name": "artifacts:farts/fart4",
+			"weight": 10
+		},
+		{
+			"name": "artifacts:farts/fart5",
+			"weight": 1
+		}
     ]
   },
   "mimic.close": {

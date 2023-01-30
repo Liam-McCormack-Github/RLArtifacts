@@ -1,6 +1,7 @@
 package artifacts.common.item;
 
 import artifacts.common.ModConfig;
+import artifacts.common.util.BaubleHelper;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import baubles.api.cap.IBaublesItemHandler;
@@ -47,42 +48,55 @@ public class AttributeModifierBauble extends BaubleBase {
         IBaublesItemHandler baublesHandler = BaublesApi.getBaublesHandler(player);
         Set<ExtendedAttributeModifier> modifiers = new HashSet<>();
 
-        for (int slot : BaubleType.TRINKET.getValidSlots()) {
+        for(int slot : BaubleType.TRINKET.getValidSlots()) {
             ItemStack stack = baublesHandler.getStackInSlot(slot);
-            if (stack.getItem() instanceof AttributeModifierBauble && stack != excludedStack) {
+            if(stack.getItem() instanceof AttributeModifierBauble && stack != excludedStack) {
                 modifiers.addAll(((AttributeModifierBauble) stack.getItem()).attributeModifiers);
             }
         }
 
         modifiers.retainAll(attributeModifiers);
 
-        for (ExtendedAttributeModifier modifier : attributeModifiers) {
-            for (IAttribute attribute : modifier.affectedAttributes) {
-                IAttributeInstance instance = player.getAttributeMap().getAttributeInstance(attribute);
-                if (instance.getModifier(modifier.getID()) != null) {
-                    instance.removeModifier(modifier.getID());
-                }
+        for(ExtendedAttributeModifier modifier : attributeModifiers) {
+            IAttributeInstance instance = player.getAttributeMap().getAttributeInstance(modifier.affectedAttribute);
+            if(instance.getModifier(modifier.id) != null) {
+                instance.removeModifier(modifier.id);
             }
         }
 
-        for (ExtendedAttributeModifier modifier : modifiers) {
-            for (IAttribute attribute : modifier.affectedAttributes) {
-                player.getAttributeMap().getAttributeInstance(attribute).applyModifier(modifier);
-            }
+        //Allow stacking the same type of baubles, since you can stack different types
+        int amount = BaubleHelper.getAmountBaubleEquipped(player, this);
+
+        for(ExtendedAttributeModifier modifier : modifiers) {
+            player.getAttributeMap().getAttributeInstance(modifier.affectedAttribute).applyModifier(new AttributeModifier(modifier.id, modifier.name, modifier.getValue() * amount, modifier.getOperation()));
         }
     }
 
-    public static class ExtendedAttributeModifier extends AttributeModifier {
+    public static class ExtendedAttributeModifier {
 
-        public static ExtendedAttributeModifier ATTACK_DAMAGE = new ExtendedAttributeModifier(UUID.fromString("15fab7b9-5916-460b-a8e8-8434849a0662"), "attack damage boost", ModConfig.general.attackDamageBoost, 0, SharedMonsterAttributes.ATTACK_DAMAGE);
-        public static ExtendedAttributeModifier ATTACK_SPEED = new ExtendedAttributeModifier(UUID.fromString("7a3367b2-0a38-491d-b5c7-338d5d0c1dd4"), "attack speed boost", 1, 2, SharedMonsterAttributes.ATTACK_SPEED);
+        public final UUID id;
+        public final String name;
+        public final IAttribute affectedAttribute;
 
-        public final IAttribute[] affectedAttributes;
+        public ExtendedAttributeModifier(UUID id, String nameIn, IAttribute affectedAttribute) {
+            this.id = id;
+            this.name = nameIn;
+            this.affectedAttribute = affectedAttribute;
+        }
 
-        public ExtendedAttributeModifier(UUID id, String nameIn, double amountIn, int operationIn, IAttribute... affectedAttributes) {
-            super(id, nameIn, amountIn, operationIn);
-            this.affectedAttributes = affectedAttributes;
-            setSaved(true);
+        //Yea, not as simply expandable as before, but atleast it will actually use the config values
+        public double getValue() {
+            if(this.affectedAttribute == SharedMonsterAttributes.ATTACK_DAMAGE) return ModConfig.general.attackDamageBoost;
+            if(this.affectedAttribute == SharedMonsterAttributes.ATTACK_SPEED)  return ModConfig.general.attackSpeedBoost;
+            if(this.affectedAttribute == SharedMonsterAttributes.LUCK)          return ModConfig.general.luckBoost;
+            return 0;
+        }
+
+        public int getOperation() {
+            if(this.affectedAttribute == SharedMonsterAttributes.ATTACK_DAMAGE) return ModConfig.general.attackDamageOperation;
+            if(this.affectedAttribute == SharedMonsterAttributes.ATTACK_SPEED)  return ModConfig.general.attackSpeedOperation;
+            if(this.affectedAttribute == SharedMonsterAttributes.LUCK)          return ModConfig.general.luckOperation;
+            return 0;
         }
     }
 }

@@ -1,21 +1,15 @@
 package artifacts.common.item;
 
-import artifacts.Artifacts;
-import artifacts.client.model.ModelBottledCloud;
 import artifacts.common.init.ModNetworkHandler;
 import artifacts.common.init.ModSoundEvents;
 import artifacts.common.network.PacketBottledCloudJump;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
-import baubles.api.render.IRenderBauble;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -23,34 +17,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod.EventBusSubscriber
-public class BaubleBottledCloud extends BaubleBase implements IRenderBauble {
-
-    protected ModelBase model = new ModelBottledCloud();
-
-    protected ResourceLocation textures;
+public class BaubleBottledCloud extends BaubleBase {
 
     public final boolean isFart;
 
     public BaubleBottledCloud(String name, boolean isFart) {
         super(name, BaubleType.BELT);
         this.isFart = isFart;
-        if (isFart) {
-            textures = new ResourceLocation(Artifacts.MODID, "textures/entity/layer/bottled_fart.png");
-        } else {
-            textures = new ResourceLocation(Artifacts.MODID, "textures/entity/layer/bottled_cloud.png");
-        }
-
-    }
-
-    @Override
-    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType renderType, float partialticks) {
-        if (renderType == RenderType.BODY) {
-            GlStateManager.enableLighting();
-            GlStateManager.enableRescaleNormal();
-            Helper.rotateIfSneaking(player);
-            Minecraft.getMinecraft().renderEngine.bindTexture(textures);
-            model.render(player, partialticks, 0, 0, 0, 0, 1/16F);
-        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -82,9 +55,9 @@ public class BaubleBottledCloud extends BaubleBase implements IRenderBauble {
                                 player.jump();
                                 player.fallDistance = 0;
                                 if (((BaubleBottledCloud) stack.getItem()).isFart) {
-                                    player.playSound(ModSoundEvents.FART, 1, 0.9F + player.getRNG().nextFloat() * 0.2F);
+                                    player.playSound(ModSoundEvents.FART, 1.3F, 0.8F + player.getRNG().nextFloat() * 0.4F);
                                 } else {
-                                    player.playSound(SoundEvents.BLOCK_CLOTH_FALL, 1, 0.9F + player.getRNG().nextFloat() * 0.2F);
+                                    player.playSound(SoundEvents.BLOCK_CLOTH_FALL, 1.3F, 0.8F + player.getRNG().nextFloat() * 0.4F);
                                 }
                             }
                         }

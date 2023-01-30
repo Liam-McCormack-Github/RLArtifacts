@@ -4,24 +4,11 @@ import artifacts.common.ModConfig;
 import artifacts.common.worldgen.WorldGenUndergroundChest;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class ModWorldGen {
 
     public static void init() {
-        GameRegistry.registerWorldGenerator(new WorldGenUndergroundChest(getDimensionList(ModConfig.general.undergroundChestDimensions)), 0);
-    }
-
-    private static List<Integer> getDimensionList(String dimensionString) {
-        List<Integer> result = new ArrayList<>();
-        dimensionString = dimensionString.replaceAll(" +", "");
-        for (String s : dimensionString.split(",")) {
-            try {
-                result.add(Integer.parseInt(s));
-            } catch (NumberFormatException ignored) {
-            }
-        }
-        return result;
+        GameRegistry.registerWorldGenerator(new WorldGenUndergroundChest(Arrays.asList(ModConfig.general.undergroundChestDimensions)), 0);
     }
 }

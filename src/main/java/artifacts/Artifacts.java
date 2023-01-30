@@ -5,6 +5,7 @@ import artifacts.common.init.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -59,6 +60,11 @@ public class Artifacts {
         @SubscribeEvent
         public static void registerItems(RegistryEvent.Register<Item> event) {
             ModItems.registerItems(event.getRegistry());
+        }
+
+        @SubscribeEvent
+        public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+            ModRecipes.registerRecipes(event.getRegistry());
         }
 
         @SubscribeEvent

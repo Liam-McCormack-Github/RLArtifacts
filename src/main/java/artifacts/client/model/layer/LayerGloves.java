@@ -2,10 +2,10 @@ package artifacts.client.model.layer;
 
 import artifacts.Artifacts;
 import artifacts.common.init.ModItems;
+import artifacts.common.util.RenderHelper;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderPlayer;
@@ -27,8 +27,7 @@ public class LayerGloves extends LayerBauble {
     public final ResourceLocation pocketPistonTextures;
 
     public LayerGloves(boolean smallArms, RenderPlayer renderPlayer) {
-        super(renderPlayer, new ModelPlayer(0.5F, smallArms));
-        model.setVisible(false);
+        super(renderPlayer, smallArms);
         feralClawsTextures = new ResourceLocation(Artifacts.MODID, "textures/entity/layer/feral_claws_" + (smallArms ? "slim" : "normal") + ".png");
         powerGloveTextures = new ResourceLocation(Artifacts.MODID, "textures/entity/layer/power_glove_" + (smallArms ? "slim" : "normal") + ".png");
         mechanicalGloveTextures = new ResourceLocation(Artifacts.MODID, "textures/entity/layer/mechanical_glove_" + (smallArms ? "slim" : "normal") + ".png");
@@ -58,31 +57,36 @@ public class LayerGloves extends LayerBauble {
     }
 
     private void renderArm(EnumHandSide hand, @Nonnull EntityPlayer player, boolean overlay, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if (!setTextures(player, hand, overlay)) {
-            return;
+        if(!setTextures(player, hand, overlay)) return;
+
+        if(hand == EnumHandSide.LEFT) {
+            modelPlayer.bipedLeftArm.showModel = true;
+            modelPlayer.bipedLeftArmwear.showModel = true;
+            modelPlayer.bipedRightArm.showModel = false;
+            modelPlayer.bipedRightArmwear.showModel = false;
+        }
+        else {
+            modelPlayer.bipedLeftArm.showModel = false;
+            modelPlayer.bipedLeftArmwear.showModel = false;
+            modelPlayer.bipedRightArm.showModel = true;
+            modelPlayer.bipedRightArmwear.showModel = true;
         }
 
-        if (hand == EnumHandSide.LEFT) {
-            model.bipedLeftArm.showModel = true;
-            model.bipedLeftArmwear.showModel = true;
-        } else {
-            model.bipedRightArm.showModel = true;
-            model.bipedRightArmwear.showModel = true;
+        modelPlayer.render(player, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+
+        if(hand == EnumHandSide.LEFT) {
+            modelPlayer.bipedLeftArmwear.showModel = false;
+            modelPlayer.bipedLeftArm.showModel = false;
         }
-
-        model.render(player, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-
-        if (hand == EnumHandSide.LEFT) {
-            model.bipedLeftArmwear.showModel = false;
-            model.bipedLeftArm.showModel = false;
-        } else {
-            model.bipedRightArmwear.showModel = false;
-            model.bipedRightArm.showModel = false;
+        else {
+            modelPlayer.bipedRightArmwear.showModel = false;
+            modelPlayer.bipedRightArm.showModel = false;
         }
     }
 
     private boolean setTextures(EntityPlayer player, EnumHandSide hand, boolean overlay) {
         ItemStack stack = BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.RING.getValidSlots()[hand == EnumHandSide.LEFT ? 0 : 1]);
+        if(!RenderHelper.shouldItemStackRender(player, stack)) return false;
         ResourceLocation textures = overlay ? getOverlayTextures(stack) : getTextures(stack);
         if (textures != null) {
             Minecraft.getMinecraft().getTextureManager().bindTexture(textures);
