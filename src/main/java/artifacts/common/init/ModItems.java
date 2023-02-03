@@ -30,7 +30,7 @@ public class ModItems {
     public static final BaubleBase ANTIDOTE_VESSEL = new BaubleAntidoteVessel("antidote_vessel").setEquipSound(SoundEvents.ITEM_BOTTLE_FILL, SoundEvents.ITEM_BOTTLE_EMPTY);
     public static final BaubleBase BUBBLE_WRAP = new BaubleBase("bubble_wrap", BaubleType.BELT).setEquipSound(SoundEvents.BLOCK_SNOW_HIT);
     public static final BaubleBase SACRIFICIAL_AMULET = new BaubleAmulet("sacrificial_amulet").setEquipSound(SoundEvents.ITEM_ARMOR_EQUIP_CHAIN);
-    public static final BaubleBase LUCKY_CLOVER = new AttributeModifierBauble("lucky_clover", BaubleType.TRINKET, new AttributeModifierBauble.ExtendedAttributeModifier(UUID.fromString("aebc0384-0d15-44f7-8ebc-c41f251f84dd"), "Lucky Clover Luck", SharedMonsterAttributes.LUCK));
+    public static final BaubleBase LUCKY_CLOVER = new AttributeModifierBauble("lucky_clover", BaubleType.CHARM, new AttributeModifierBauble.ExtendedAttributeModifier(UUID.fromString("aebc0384-0d15-44f7-8ebc-c41f251f84dd"), "Lucky Clover Luck", SharedMonsterAttributes.LUCK));
 
     public static void registerItems(IForgeRegistry<Item> registry) {
         registry.registerAll(
