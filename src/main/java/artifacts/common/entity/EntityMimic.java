@@ -82,7 +82,13 @@ public class EntityMimic extends EntityLiving implements IMob {
         return false;
     }
 
-    // doesn't seem to have any effect
+    @Override
+    protected boolean canBeRidden(Entity entity) { return false; }
+
+    @Override
+    protected boolean canFitPassenger(Entity entity) { return false; }
+
+    // causes attacking non-players to not work
    //@Override
     //public boolean canBePushed() { return false; }
 
