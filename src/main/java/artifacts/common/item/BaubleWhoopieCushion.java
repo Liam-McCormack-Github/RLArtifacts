@@ -23,11 +23,10 @@ public class BaubleWhoopieCushion extends BaubleBase {
 
     @Override
     public void onWornTick(ItemStack stack, EntityLivingBase player) {
-        if (stack.getMetadata() == 1 && !player.isSneaking()) {
-            stack.setItemDamage(0);
-        } else if (stack.getMetadata() == 0 && player.isSneaking()) {
+        if(stack.getMetadata() == 1 && !player.isSneaking()) stack.setItemDamage(0);
+        else if(stack.getMetadata() == 0 && player.isSneaking()) {
             stack.setItemDamage(1);
-            if (player.getRNG().nextInt(3) == 0) {
+            if(player.getRNG().nextInt(3) == 0) {
                 player.playSound(ModSoundEvents.FART, 1, 0.9F + player.getRNG().nextFloat() * 0.2F);
             }
         }

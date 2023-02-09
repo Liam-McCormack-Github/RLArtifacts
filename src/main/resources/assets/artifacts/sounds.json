@@ -23,6 +23,13 @@
 		}
     ]
   },
+  "bubble_wrap": {
+    "sounds": [
+		"artifacts:bubble_wrap/bubble_wrap_1",
+		"artifacts:bubble_wrap/bubble_wrap_2",
+		"artifacts:bubble_wrap/bubble_wrap_3"
+    ]
+  },
   "mimic.close": {
     "sounds": [
       "block/chest/close",
