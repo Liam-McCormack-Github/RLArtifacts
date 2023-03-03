@@ -169,7 +169,6 @@ public class EntityMimic extends EntityLiving implements IMob {
     @Override
     public void applyEntityCollision(Entity entityIn) {
         super.applyEntityCollision(entityIn);
-        System.out.println("Collided, dormat: " + this.isDormant + " ticksinAir: " + this.ticksInAir);
         if(entityIn instanceof EntityLivingBase) this.dealDamage((EntityLivingBase)entityIn);
     }
     @Override
@@ -178,7 +177,6 @@ public class EntityMimic extends EntityLiving implements IMob {
     }
 
     private void dealDamage(EntityLivingBase entity) {
-        System.out.println("Attempting damage distance: " + this.getDistanceSq(entity));
         if(!this.isDormant && this.ticksInAir > 0 && this.getDistanceSq(entity) < 1.5 && entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue())) {
             applyEnchantments(this, entity);
         }
@@ -186,7 +184,7 @@ public class EntityMimic extends EntityLiving implements IMob {
 
     @Override
     public boolean isEntityInvulnerable(DamageSource source) {
-        return super.isEntityInvulnerable(source) || (this.ticksInAir <= 0 && !source.isCreativePlayer() && !source.isFireDamage() && !source.isUnblockable());
+        return super.isEntityInvulnerable(source) || source == DamageSource.DROWN || (this.ticksInAir <= 0 && !source.isCreativePlayer() && !source.isFireDamage() && !source.isUnblockable());
     }
 
     @Override
