@@ -88,6 +88,12 @@ public class EntityMimic extends EntityLiving implements IMob {
     @Override
     protected boolean canFitPassenger(Entity entity) { return false; }
 
+    @Override
+    public boolean isPushedByWater() { return false; }
+
+    @Override
+    public boolean canBreatheUnderwater() { return true; }
+
     // causes attacking non-players to not work
    //@Override
     //public boolean canBePushed() { return false; }
@@ -184,7 +190,7 @@ public class EntityMimic extends EntityLiving implements IMob {
 
     @Override
     public boolean isEntityInvulnerable(DamageSource source) {
-        return super.isEntityInvulnerable(source) || source == DamageSource.DROWN || (this.ticksInAir <= 0 && !source.isCreativePlayer() && !source.isFireDamage() && !source.isUnblockable());
+        return super.isEntityInvulnerable(source) || (this.ticksInAir <= 0 && !source.isCreativePlayer() && !source.isFireDamage() && !source.isUnblockable());
     }
 
     @Override

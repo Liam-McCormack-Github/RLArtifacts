@@ -155,6 +155,10 @@ public class ModConfig {
         @Config.Comment("How much to multiply knockback when using the pocket piston.")
         @Config.RangeDouble(min = 1.0, max = 100.0)
         public double pistonKnockback = 2.0;
+
+        @Config.Name("Register Legacy Items")
+        @Config.Comment("Registers baubles from the original Artifacts that overlap with BountifulBaubles (Cobalt Shield, Lucky Horseshoe, etc)")
+        public boolean registerLegacyItems = false;
     }
 
     public static class Client {

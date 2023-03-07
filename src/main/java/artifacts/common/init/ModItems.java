@@ -1,10 +1,13 @@
 package artifacts.common.init;
 
+import artifacts.common.ModConfig;
 import artifacts.common.item.*;
 import baubles.api.BaubleType;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.UUID;
@@ -32,6 +35,14 @@ public class ModItems {
     public static final BaubleBase SACRIFICIAL_AMULET = new BaubleAmulet("sacrificial_amulet").setEquipSound(SoundEvents.ITEM_ARMOR_EQUIP_CHAIN);
     public static final BaubleBase LUCKY_CLOVER = new AttributeModifierBauble("lucky_clover", BaubleType.CHARM, new AttributeModifierBauble.ExtendedAttributeModifier(UUID.fromString("aebc0384-0d15-44f7-8ebc-c41f251f84dd"), "Lucky Clover Luck", SharedMonsterAttributes.LUCK));
 
+
+    public static final BaubleBase SHINY_RED_BALLOON = new BaublePotionEffect("shiny_red_balloon", BaubleType.CHARM, MobEffects.JUMP_BOOST, 1).setEquipSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.5F);
+    public static final BaubleBase SNORKEL = new BaublePotionEffect("snorkel", BaubleType.HEAD, MobEffects.WATER_BREATHING, 0).setEquipSound(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER);
+    public static final BaubleBase LUCKY_HORSESHOE = new BaubleBase("lucky_horseshoe", BaubleType.CHARM).setEquipSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD);
+    public static final BaubleBase COBALT_SHIELD = new BaubleBase("cobalt_shield", BaubleType.CHARM).setEquipSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+    public static final BaubleBase OBSIDIAN_SKULL = new BaubleObsidianSkull();
+    public static final BaubleBase NIGHT_VISION_GOGGLES = new BaublePotionEffect("night_vision_goggles", BaubleType.HEAD, MobEffects.NIGHT_VISION, 0, 300).setEquipSound(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER);
+
     public static void registerItems(IForgeRegistry<Item> registry) {
         registry.registerAll(
                 SHOCK_PENDANT,
@@ -54,6 +65,15 @@ public class ModItems {
                 BUBBLE_WRAP,
                 SACRIFICIAL_AMULET,
                 LUCKY_CLOVER
+        );
+        
+        if(ModConfig.general.registerLegacyItems) registry.registerAll(
+                SHINY_RED_BALLOON,
+                SNORKEL,
+                LUCKY_HORSESHOE,
+                COBALT_SHIELD,
+                OBSIDIAN_SKULL,
+                NIGHT_VISION_GOGGLES
         );
     }
 
@@ -78,5 +98,14 @@ public class ModItems {
         BUBBLE_WRAP.registerModel();
         SACRIFICIAL_AMULET.registerModel();
         LUCKY_CLOVER.registerModel();
+
+        if(ModConfig.general.registerLegacyItems) {
+            SHINY_RED_BALLOON.registerModel();
+            SNORKEL.registerModel();
+            LUCKY_HORSESHOE.registerModel();
+            COBALT_SHIELD.registerModel();
+            OBSIDIAN_SKULL.registerModel();
+            NIGHT_VISION_GOGGLES.registerModel();
+        }
     }
 }

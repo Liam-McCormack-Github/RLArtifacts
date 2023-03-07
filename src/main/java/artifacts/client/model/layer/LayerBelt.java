@@ -4,6 +4,7 @@ import artifacts.Artifacts;
 import artifacts.client.model.ModelAntidoteVessel;
 import artifacts.client.model.ModelBottledCloud;
 import artifacts.client.model.ModelBubbleWrap;
+import artifacts.client.model.ModelObsidianSkull;
 import artifacts.common.init.ModItems;
 import artifacts.common.util.RenderHelper;
 import baubles.api.BaubleType;
@@ -24,10 +25,12 @@ public class LayerBelt extends LayerBauble {
     private static final ResourceLocation BOTTLED_FART = new ResourceLocation(Artifacts.MODID, "textures/entity/layer/bottled_fart.png");
     private static final ResourceLocation ANTIDOTE_VESSEL = new ResourceLocation(Artifacts.MODID, "textures/entity/layer/antidote_vessel.png");
     private static final ResourceLocation BUBBLE_WRAP = new ResourceLocation(Artifacts.MODID, "textures/entity/layer/bubble_wrap.png");
+    private static final ResourceLocation OBSIDIAN_SKULL = new ResourceLocation(Artifacts.MODID, "textures/entity/layer/obsidian_skull.png");
 
     private static final ModelBase BOTTLE_MODEL = new ModelBottledCloud();
     private static final ModelBase ANTIDOTE_MODEL = new ModelAntidoteVessel();
     private static final ModelBase BUBBLE_MODEL = new ModelBubbleWrap();
+    private static final ModelBase SKULL_MODEL = new ModelObsidianSkull();
 
     public LayerBelt(RenderPlayer renderPlayer) {
         super(renderPlayer);
@@ -55,6 +58,7 @@ public class LayerBelt extends LayerBauble {
             Minecraft.getMinecraft().getTextureManager().bindTexture(textures);
             if(stack.getItem() == ModItems.ANTIDOTE_VESSEL) return ANTIDOTE_MODEL;
             else if(stack.getItem() == ModItems.BUBBLE_WRAP) return BUBBLE_MODEL;
+            else if(stack.getItem() == ModItems.OBSIDIAN_SKULL) return SKULL_MODEL;
             else return BOTTLE_MODEL;
         }
         return null;
@@ -65,6 +69,7 @@ public class LayerBelt extends LayerBauble {
         else if(stack.getItem() == ModItems.BOTTLED_FART) return BOTTLED_FART;
         else if(stack.getItem() == ModItems.ANTIDOTE_VESSEL) return ANTIDOTE_VESSEL;
         else if(stack.getItem() == ModItems.BUBBLE_WRAP) return BUBBLE_WRAP;
+        else if(stack.getItem() == ModItems.OBSIDIAN_SKULL) return OBSIDIAN_SKULL;
         else return null;
     }
 }

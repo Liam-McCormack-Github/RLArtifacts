@@ -20,7 +20,7 @@ public class Artifacts {
 
     public static final String MODID = "artifacts";
     public static final String MODNAME = "RLArtifacts";
-    public static final String VERSION = "1.0.4";
+    public static final String VERSION = "1.1.0";
 
     public static final CreativeTabs ARTIFACTS_TAB = new ArtifactTab();
 

@@ -53,5 +53,7 @@ public class ClientProxy implements IProxy {
         renderPlayer.addLayer(new LayerAmulet(renderPlayer));
         renderPlayer.addLayer(new LayerBelt(renderPlayer));
         renderPlayer.addLayer(new LayerCloak(renderPlayer));
+        renderPlayer.addLayer(new LayerNightVisionGoggles(renderPlayer));
+        renderPlayer.addLayer(new LayerSnorkel(renderPlayer));
     }
 }
