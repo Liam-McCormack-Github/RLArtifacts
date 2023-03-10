@@ -143,6 +143,10 @@ public class ModConfig {
         @Config.RangeInt(min = 10, max = 10000)
         public int sacrificialCharge = 99;
 
+        @Config.Name("Sacrifical Amulet Tooltip")
+        @Config.Comment("Should the Sacrificial Amulet use its custom tooltip info.")
+        public boolean sacrificialTooltip = true;
+
         @Config.Name("Sacrifical Amulet Charge Visibility")
         @Config.Comment("Should the current charge of the Sacrificial Amulet be visible in the tooltip.")
         public boolean sacrificialVisible = true;

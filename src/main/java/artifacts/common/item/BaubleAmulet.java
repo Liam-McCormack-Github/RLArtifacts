@@ -50,7 +50,7 @@ public class BaubleAmulet extends BaubleBase {
     @SuppressWarnings("deprecation")
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        if(stack.getItem() == ModItems.SACRIFICIAL_AMULET && stack.getTagCompound() != null && (GuiScreen.isShiftKeyDown() || ModConfig.client.alwaysShowTooltip)) {
+        if(stack.getItem() == ModItems.SACRIFICIAL_AMULET && ModConfig.general.sacrificialTooltip && stack.getTagCompound() != null && (GuiScreen.isShiftKeyDown() || ModConfig.client.alwaysShowTooltip)) {
             tooltip.add(TextFormatting.DARK_RED + "" +
                     I18n.translateToLocal("tooltip." + Artifacts.MODID + "." + name + ".charge") +
                     ": " +
