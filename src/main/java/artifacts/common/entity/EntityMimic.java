@@ -280,15 +280,17 @@ public class EntityMimic extends EntityLiving implements IMob {
             if(tile instanceof TileEntityChest && block instanceof BlockChest && !player.isSpectator()) {
                 if(!Arrays.asList(ModConfig.general.unlootedChestDimensions).contains(event.getWorld().provider.getDimension())) return;
                 if(world.getBlockState(pos.up()).doesSideBlockChestOpening(world, pos.up(), EnumFacing.DOWN)) return;
-                if(((ILootContainer)tile).getLootTable() != null && world.rand.nextFloat() <= ModConfig.general.unlootedChestMimicRatio) {
-                    event.setCanceled(true);
+                if(((ILootContainer)tile).getLootTable() != null) {
                     ((TileEntityChest) tile).fillWithLoot(player);
-                    world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
-                    EntityMimic mimic = new EntityMimic(world);
-                    mimic.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
-                    mimic.enablePersistence();
-                    mimic.setAwakeWithTarget(player);
-                    world.spawnEntity(mimic);
+                    if(world.rand.nextFloat() <= ModConfig.general.unlootedChestMimicRatio) {
+                        event.setCanceled(true);
+                        world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+                        EntityMimic mimic = new EntityMimic(world);
+                        mimic.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+                        mimic.enablePersistence();
+                        mimic.setAwakeWithTarget(player);
+                        world.spawnEntity(mimic);
+                    }
                 }
             }
         }
@@ -303,15 +305,17 @@ public class EntityMimic extends EntityLiving implements IMob {
             EntityPlayer player = event.getPlayer();
             if(tile instanceof TileEntityChest && block instanceof BlockChest && !player.isSpectator()) {
                 if(!Arrays.asList(ModConfig.general.unlootedChestDimensions).contains(event.getWorld().provider.getDimension())) return;
-                if(((ILootContainer)tile).getLootTable() != null && world.rand.nextFloat() <= ModConfig.general.unlootedChestMimicRatio) {
-                    event.setCanceled(true);
+                if(((ILootContainer)tile).getLootTable() != null) {
                     ((TileEntityChest) tile).fillWithLoot(player);
-                    world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
-                    EntityMimic mimic = new EntityMimic(world);
-                    mimic.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
-                    mimic.enablePersistence();
-                    mimic.setAwakeWithTarget(player);
-                    world.spawnEntity(mimic);
+                    if(world.rand.nextFloat() <= ModConfig.general.unlootedChestMimicRatio) {
+                        event.setCanceled(true);
+                        world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+                        EntityMimic mimic = new EntityMimic(world);
+                        mimic.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                        mimic.enablePersistence();
+                        mimic.setAwakeWithTarget(player);
+                        world.spawnEntity(mimic);
+                    }
                 }
             }
         }
