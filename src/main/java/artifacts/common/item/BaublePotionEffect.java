@@ -25,7 +25,7 @@ public class BaublePotionEffect extends BaubleBase {
 
     @Override
     public void onWornTick(ItemStack itemStack, EntityLivingBase player) {
-        if(player.ticksExisted%39==0) {
+        if (player.ticksExisted % 39 == 0) {
             player.addPotionEffect(new PotionEffect(effect, duration, effectAmplifier, true, false));
         }
     }

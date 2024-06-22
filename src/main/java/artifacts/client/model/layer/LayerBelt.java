@@ -43,33 +43,33 @@ public class LayerBelt extends LayerBauble {
 
     private void renderBelt(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         ModelBase belt = setTexturesGetModel(player);
-        if(belt == null) return;
+        if (belt == null) return;
 
-        if(player.isSneaking()) GlStateManager.translate(0, 0.2F, 0);
+        if (player.isSneaking()) GlStateManager.translate(0, 0.2F, 0);
         modelPlayer.bipedBody.postRender(scale);
         belt.render(player, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
     }
 
     private ModelBase setTexturesGetModel(EntityPlayer player) {
         ItemStack stack = BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.BELT.getValidSlots()[0]);
-        if(!RenderHelper.shouldItemStackRender(player, stack)) return null;
+        if (!RenderHelper.shouldItemStackRender(player, stack)) return null;
         ResourceLocation textures = getTextures(stack);
-        if(textures != null) {
+        if (textures != null) {
             Minecraft.getMinecraft().getTextureManager().bindTexture(textures);
-            if(stack.getItem() == ModItems.ANTIDOTE_VESSEL) return ANTIDOTE_MODEL;
-            else if(stack.getItem() == ModItems.BUBBLE_WRAP) return BUBBLE_MODEL;
-            else if(stack.getItem() == ModItems.OBSIDIAN_SKULL) return SKULL_MODEL;
+            if (stack.getItem() == ModItems.ANTIDOTE_VESSEL) return ANTIDOTE_MODEL;
+            else if (stack.getItem() == ModItems.BUBBLE_WRAP) return BUBBLE_MODEL;
+            else if (stack.getItem() == ModItems.OBSIDIAN_SKULL) return SKULL_MODEL;
             else return BOTTLE_MODEL;
         }
         return null;
     }
 
     private @Nullable ResourceLocation getTextures(ItemStack stack) {
-        if(stack.getItem() == ModItems.BOTTLED_CLOUD) return BOTTLED_CLOUD;
-        else if(stack.getItem() == ModItems.BOTTLED_FART) return BOTTLED_FART;
-        else if(stack.getItem() == ModItems.ANTIDOTE_VESSEL) return ANTIDOTE_VESSEL;
-        else if(stack.getItem() == ModItems.BUBBLE_WRAP) return BUBBLE_WRAP;
-        else if(stack.getItem() == ModItems.OBSIDIAN_SKULL) return OBSIDIAN_SKULL;
+        if (stack.getItem() == ModItems.BOTTLED_CLOUD) return BOTTLED_CLOUD;
+        else if (stack.getItem() == ModItems.BOTTLED_FART) return BOTTLED_FART;
+        else if (stack.getItem() == ModItems.ANTIDOTE_VESSEL) return ANTIDOTE_VESSEL;
+        else if (stack.getItem() == ModItems.BUBBLE_WRAP) return BUBBLE_WRAP;
+        else if (stack.getItem() == ModItems.OBSIDIAN_SKULL) return OBSIDIAN_SKULL;
         else return null;
     }
 }

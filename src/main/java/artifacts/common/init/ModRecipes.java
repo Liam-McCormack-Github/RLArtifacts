@@ -9,6 +9,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModRecipes {
     public static void registerRecipes(IForgeRegistry<IRecipe> registry) {
-        if(Loader.isModLoaded("classyhats")) registry.register(new ArtifactPhantomThreadRecipe().setRegistryName(new ResourceLocation(Artifacts.MODID, "artifacts_phantom_thread")));
+        if (Loader.isModLoaded("classyhats"))
+            registry.register(new ArtifactPhantomThreadRecipe().setRegistryName(new ResourceLocation(Artifacts.MODID, "artifacts_phantom_thread")));
     }
 }

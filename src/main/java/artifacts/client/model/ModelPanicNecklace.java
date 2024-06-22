@@ -36,10 +36,10 @@ public class ModelPanicNecklace extends ModelBase {
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GlStateManager.translate(0, -0.02F, 0);
-        GlStateManager.scale(7/6F, 7/6F, 7/6F);
+        GlStateManager.scale(7 / 6F, 7 / 6F, 7 / 6F);
         GlStateManager.scale(0.5F, 0.5F, 0.5F);
         bipedBody.render(f5);
-        GlStateManager.translate(-1.25/8F, 3/8F, -2.25/8F);
+        GlStateManager.translate(-1.25 / 8F, 3 / 8F, -2.25 / 8F);
         gem4.render(f5);
         gem3.render(f5);
         gem2.render(f5);

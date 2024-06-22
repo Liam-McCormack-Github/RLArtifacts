@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "artifacts:items/mixed_colour_dragon_scale"
+  }
+}

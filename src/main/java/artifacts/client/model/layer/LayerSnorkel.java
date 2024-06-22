@@ -23,12 +23,12 @@ public class LayerSnorkel extends LayerBauble {
 
     @Override
     protected void renderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if(BaublesApi.isBaubleEquipped(player, ModItems.SNORKEL) == -1) return;
+        if (BaublesApi.isBaubleEquipped(player, ModItems.SNORKEL) == -1) return;
         boolean renderFull = RenderHelper.shouldRenderInSlot(player, EntityEquipmentSlot.HEAD);
         ItemStack stack = BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.HEAD.getValidSlots()[0]);
-        if(stack.getItem() != ModItems.SNORKEL || !RenderHelper.shouldItemStackRender(player, stack)) return;
+        if (stack.getItem() != ModItems.SNORKEL || !RenderHelper.shouldItemStackRender(player, stack)) return;
 
-        if(player.isSneaking()) GlStateManager.translate(0, 0.2F, 0);
+        if (player.isSneaking()) GlStateManager.translate(0, 0.2F, 0);
 
         modelPlayer.bipedHead.postRender(scale);
         snorkel.render(player, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, renderFull);

@@ -14,7 +14,8 @@ public class PacketBottledCloudJump implements IMessage {
     boolean isFart;
 
     @SuppressWarnings("unused")
-    public PacketBottledCloudJump() { }
+    public PacketBottledCloudJump() {
+    }
 
     public PacketBottledCloudJump(boolean isFart) {
         this.isFart = isFart;
@@ -39,10 +40,12 @@ public class PacketBottledCloudJump implements IMessage {
             player.getServerWorld().addScheduledTask(() -> {
                 player.fallDistance = 0;
                 player.jump();
-                for(int x = -1; x <= 1; x++) {
-                    for(int z = -1; z <= 1; z++) {
-                        if(x != 0 && z != 0) player.world.spawnParticle(EnumParticleTypes.CLOUD, player.posX + ((double)x)/1.5, player.posY, player.posZ + ((double)z)/1.5, 0, 0, 0);
-                        else player.world.spawnParticle(EnumParticleTypes.CLOUD, player.posX + x, player.posY, player.posZ + z, 0, 0, 0);
+                for (int x = -1; x <= 1; x++) {
+                    for (int z = -1; z <= 1; z++) {
+                        if (x != 0 && z != 0)
+                            player.world.spawnParticle(EnumParticleTypes.CLOUD, player.posX + ((double) x) / 1.5, player.posY, player.posZ + ((double) z) / 1.5, 0, 0, 0);
+                        else
+                            player.world.spawnParticle(EnumParticleTypes.CLOUD, player.posX + x, player.posY, player.posZ + z, 0, 0, 0);
                     }
                 }
                 if (message.isFart) {

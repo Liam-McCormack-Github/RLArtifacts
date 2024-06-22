@@ -12,8 +12,8 @@ public abstract class BaubleCobaltShield {
 
     @SubscribeEvent
     public static void onLivingKnockback(LivingKnockBackEvent event) {
-        if(event.getEntity() instanceof EntityPlayer) {
-            if(BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.COBALT_SHIELD) != -1) {
+        if (event.getEntity() instanceof EntityPlayer) {
+            if (BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.COBALT_SHIELD) != -1) {
                 event.setCanceled(true);
             }
         }

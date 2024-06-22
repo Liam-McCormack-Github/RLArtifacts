@@ -58,8 +58,8 @@ public class ModelNightVisionGoggles extends ModelBase {
 
     @Override
     public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if(!(entity instanceof EntityPlayer)) return;
-        EntityPlayer player = (EntityPlayer)entity;
+        if (!(entity instanceof EntityPlayer)) return;
+        EntityPlayer player = (EntityPlayer) entity;
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURES);
 

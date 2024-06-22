@@ -75,15 +75,14 @@ public class BaubleBase extends Item implements IBauble {
     @SuppressWarnings("deprecation")
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        if(GuiScreen.isShiftKeyDown() || ModConfig.client.alwaysShowTooltip) {
-            tooltip.add(TextFormatting.BLUE + "" + I18n.translateToLocal("tooltip." + Artifacts.MODID + "." + name + ".name"));
-        }
-        else {
-            tooltip.add(TextFormatting.BLUE + "" + I18n.translateToLocal("tooltip." + Artifacts.MODID + ".shiftinfo.name"));
+        if (GuiScreen.isShiftKeyDown() || ModConfig.client.alwaysShowTooltip) {
+            tooltip.add(TextFormatting.BLUE + I18n.translateToLocal("tooltip." + Artifacts.MODID + "." + name + ".name"));
+        } else {
+            tooltip.add(TextFormatting.BLUE + I18n.translateToLocal("tooltip." + Artifacts.MODID + ".shiftinfo.name"));
         }
 
-        if(stack.getTagCompound() != null && stack.getTagCompound().getBoolean("phantom_thread_invisible")) {
-            tooltip.add(TextFormatting.AQUA + "" + I18n.translateToLocal("tooltip." + Artifacts.MODID + ".phantomthread.name"));
+        if (stack.getTagCompound() != null && stack.getTagCompound().getBoolean("phantom_thread_invisible")) {
+            tooltip.add(TextFormatting.AQUA + I18n.translateToLocal("tooltip." + Artifacts.MODID + ".phantomthread.name"));
         }
     }
 

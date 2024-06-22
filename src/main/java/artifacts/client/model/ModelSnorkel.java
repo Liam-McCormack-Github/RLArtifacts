@@ -50,8 +50,8 @@ public class ModelSnorkel extends ModelBase {
     }
 
     public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, boolean renderFull) {
-        if(!(entity instanceof EntityPlayer)) return;
-        EntityPlayer player = (EntityPlayer)entity;
+        if (!(entity instanceof EntityPlayer)) return;
+        EntityPlayer player = (EntityPlayer) entity;
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURES);
 
@@ -65,7 +65,7 @@ public class ModelSnorkel extends ModelBase {
         snorkelMouthPiece.showModel = false;
         snorkelTubeThing.showModel = false;
 
-        if(renderFull) {
+        if (renderFull) {
             GlStateManager.enableBlend();
             GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GlStateManager.color(1, 1, 1, 0.3F);

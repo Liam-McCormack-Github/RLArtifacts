@@ -42,33 +42,33 @@ public class LayerAmulet extends LayerBauble {
 
     private void renderChest(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         ModelBase amulet = setTexturesGetModel(player);
-        if(amulet == null) return;
+        if (amulet == null) return;
 
-        if(player.isSneaking()) GlStateManager.translate(0, 0.2F, 0);
+        if (player.isSneaking()) GlStateManager.translate(0, 0.2F, 0);
         modelPlayer.bipedBody.postRender(scale);
         amulet.render(player, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
     }
 
     private ModelBase setTexturesGetModel(EntityPlayer player) {
         ItemStack stack = BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.AMULET.getValidSlots()[0]);
-        if(!RenderHelper.shouldItemStackRender(player, stack)) return null;
+        if (!RenderHelper.shouldItemStackRender(player, stack)) return null;
         ResourceLocation textures = getTextures(stack);
-        if(textures != null) {
+        if (textures != null) {
             Minecraft.getMinecraft().getTextureManager().bindTexture(textures);
-            if(stack.getItem() == ModItems.PANIC_NECKLACE) return PANIC_MODEL;
-            else if(stack.getItem() == ModItems.ULTIMATE_PENDANT) return ULTIMATE_MODEL;
+            if (stack.getItem() == ModItems.PANIC_NECKLACE) return PANIC_MODEL;
+            else if (stack.getItem() == ModItems.ULTIMATE_PENDANT) return ULTIMATE_MODEL;
             else return AMULET_MODEL;
         }
         return null;
     }
 
     private @Nullable ResourceLocation getTextures(ItemStack stack) {
-        if(stack.getItem() == ModItems.SHOCK_PENDANT) return SHOCK_TEXTURE;
-        else if(stack.getItem() == ModItems.FLAME_PENDANT) return FLAME_TEXTURE;
-        else if(stack.getItem() == ModItems.THORN_PENDANT) return THORN_TEXTURE;
-        else if(stack.getItem() == ModItems.PANIC_NECKLACE) return PANIC_TEXTURE;
-        else if(stack.getItem() == ModItems.ULTIMATE_PENDANT) return ULTIMATE_TEXTURE;
-        else if(stack.getItem() == ModItems.SACRIFICIAL_AMULET) return SACRIFICIAL_TEXTURE;
+        if (stack.getItem() == ModItems.SHOCK_PENDANT) return SHOCK_TEXTURE;
+        else if (stack.getItem() == ModItems.FLAME_PENDANT) return FLAME_TEXTURE;
+        else if (stack.getItem() == ModItems.THORN_PENDANT) return THORN_TEXTURE;
+        else if (stack.getItem() == ModItems.PANIC_NECKLACE) return PANIC_TEXTURE;
+        else if (stack.getItem() == ModItems.ULTIMATE_PENDANT) return ULTIMATE_TEXTURE;
+        else if (stack.getItem() == ModItems.SACRIFICIAL_AMULET) return SACRIFICIAL_TEXTURE;
         else return null;
     }
 }

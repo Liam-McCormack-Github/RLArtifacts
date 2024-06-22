@@ -42,81 +42,71 @@ import java.util.Random;
 public class BaubleAmulet extends BaubleBase {
 
     public BaubleAmulet(String name) {
-        super(name, BaubleType.AMULET);
+        super(name, BaubleType.TRINKET);
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    @SuppressWarnings("deprecation")
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        if(stack.getItem() == ModItems.SACRIFICIAL_AMULET && ModConfig.general.sacrificialTooltip && stack.getTagCompound() != null && (GuiScreen.isShiftKeyDown() || ModConfig.client.alwaysShowTooltip)) {
-            tooltip.add(TextFormatting.DARK_RED + "" +
-                    I18n.translateToLocal("tooltip." + Artifacts.MODID + "." + name + ".charge") +
-                    ": " +
-                    (ModConfig.general.sacrificialVisible ? "" : TextFormatting.OBFUSCATED) +
-                    stack.getTagCompound().getInteger("Sacrificial Amulet Charge") + (ModConfig.general.sacrificialChargeShowTotal ? " / " + ModConfig.general.sacrificialCharge : ""));
-        }
-    }
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
-        if(!event.getEntity().world.isRemote && event.getEntity() instanceof EntityPlayer) {
+        if (!event.getEntity().world.isRemote && event.getEntity() instanceof EntityPlayer) {
             boolean hasUltimatePendant = BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.ULTIMATE_PENDANT) != -1;
 
             // flame pendant burning immunity
-            if(event.getSource() == DamageSource.ON_FIRE && (hasUltimatePendant || BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.FLAME_PENDANT) != -1)) {
+            if (event.getSource() == DamageSource.ON_FIRE && (hasUltimatePendant || BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.FLAME_PENDANT) != -1)) {
                 event.setCanceled(true);
-                if(event.getEntity().isBurning()) event.getEntity().extinguish();
+                if (event.getEntity().isBurning()) event.getEntity().extinguish();
                 return;
             }
 
             //Don't trigger on tiny hits
-            if(event.getAmount() < 1) return;
+            if (event.getAmount() < 1) return;
 
             // panic necklace
-            if(BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.PANIC_NECKLACE) != -1) {
+            if (BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.PANIC_NECKLACE) != -1) {
                 event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.SPEED, 60, 1, true, false));
             }
 
             // shock pendant
-            if(hasUltimatePendant || BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.SHOCK_PENDANT) != -1) {
-                if(event.getSource() == DamageSource.LIGHTNING_BOLT) event.setCanceled(true);
-                else if(event.getSource().getTrueSource() instanceof EntityLiving && ModConfig.general.shockChance > 0) {
-                    if(ModConfig.general.pendantCooldown <= 0 || !((EntityPlayer)event.getEntity()).getCooldownTracker().hasCooldown(ModItems.SHOCK_PENDANT)) {
-                        EntityLiving attacker = (EntityLiving)event.getSource().getTrueSource();
+            if (hasUltimatePendant || BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.SHOCK_PENDANT) != -1) {
+                if (event.getSource() == DamageSource.LIGHTNING_BOLT) event.setCanceled(true);
+                else if (event.getSource().getTrueSource() instanceof EntityLiving && ModConfig.general.shockChance > 0) {
+                    if (ModConfig.general.pendantCooldown <= 0 || !((EntityPlayer) event.getEntity()).getCooldownTracker().hasCooldown(ModItems.SHOCK_PENDANT)) {
+                        EntityLiving attacker = (EntityLiving) event.getSource().getTrueSource();
                         Random random = ((EntityPlayer) event.getEntity()).getRNG();
-                        if(random.nextFloat() < ModConfig.general.shockChance && attacker.world.canSeeSky(attacker.getPosition().up())) {
+                        if (random.nextFloat() < ModConfig.general.shockChance && attacker.world.canSeeSky(attacker.getPosition().up())) {
                             attacker.world.addWeatherEffect(new EntityLightningBolt(attacker.world, attacker.posX, attacker.posY, attacker.posZ, false));
-                            if(ModConfig.general.pendantCooldown > 0) ((EntityPlayer)event.getEntity()).getCooldownTracker().setCooldown(ModItems.SHOCK_PENDANT, ModConfig.general.pendantCooldown);
+                            if (ModConfig.general.pendantCooldown > 0)
+                                ((EntityPlayer) event.getEntity()).getCooldownTracker().setCooldown(ModItems.SHOCK_PENDANT, ModConfig.general.pendantCooldown);
                         }
                     }
                 }
             }
 
             // flame pendant
-            if(hasUltimatePendant || BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.FLAME_PENDANT) != -1) {
-                if(event.getSource().getTrueSource() instanceof EntityLiving && ModConfig.general.flameChance > 0) {
-                    if(ModConfig.general.pendantCooldown <= 0 || !((EntityPlayer)event.getEntity()).getCooldownTracker().hasCooldown(ModItems.FLAME_PENDANT)) {
-                        EntityLiving attacker = (EntityLiving)event.getSource().getTrueSource();
-                        Random random = ((EntityPlayer)event.getEntity()).getRNG();
-                        if(!attacker.isImmuneToFire() && attacker.attackable() && random.nextFloat() < ModConfig.general.flameChance) {
+            if (hasUltimatePendant || BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.FLAME_PENDANT) != -1) {
+                if (event.getSource().getTrueSource() instanceof EntityLiving && ModConfig.general.flameChance > 0) {
+                    if (ModConfig.general.pendantCooldown <= 0 || !((EntityPlayer) event.getEntity()).getCooldownTracker().hasCooldown(ModItems.FLAME_PENDANT)) {
+                        EntityLiving attacker = (EntityLiving) event.getSource().getTrueSource();
+                        Random random = ((EntityPlayer) event.getEntity()).getRNG();
+                        if (!attacker.isImmuneToFire() && attacker.attackable() && random.nextFloat() < ModConfig.general.flameChance) {
                             attacker.setFire(4);
                             attacker.attackEntityFrom(new EntityDamageSource("onFire", event.getEntity()).setFireDamage(), 2);
-                            if(ModConfig.general.pendantCooldown > 0) ((EntityPlayer)event.getEntity()).getCooldownTracker().setCooldown(ModItems.FLAME_PENDANT, ModConfig.general.pendantCooldown);
+                            if (ModConfig.general.pendantCooldown > 0)
+                                ((EntityPlayer) event.getEntity()).getCooldownTracker().setCooldown(ModItems.FLAME_PENDANT, ModConfig.general.pendantCooldown);
                         }
                     }
                 }
             }
 
             // thorn pendant
-            if(hasUltimatePendant || BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.THORN_PENDANT) != -1) {
-                if(event.getSource().getTrueSource() instanceof EntityLiving && ModConfig.general.thornChance > 0) {
-                    if(ModConfig.general.pendantCooldown <= 0 || !((EntityPlayer)event.getEntity()).getCooldownTracker().hasCooldown(ModItems.THORN_PENDANT)) {
+            if (hasUltimatePendant || BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntity(), ModItems.THORN_PENDANT) != -1) {
+                if (event.getSource().getTrueSource() instanceof EntityLiving && ModConfig.general.thornChance > 0) {
+                    if (ModConfig.general.pendantCooldown <= 0 || !((EntityPlayer) event.getEntity()).getCooldownTracker().hasCooldown(ModItems.THORN_PENDANT)) {
                         EntityLiving attacker = (EntityLiving) event.getSource().getTrueSource();
                         Random random = ((EntityPlayer) event.getEntity()).getRNG();
-                        if(attacker.attackable() && random.nextFloat() < ModConfig.general.thornChance) {
+                        if (attacker.attackable() && random.nextFloat() < ModConfig.general.thornChance) {
                             attacker.attackEntityFrom(DamageSource.causeThornsDamage(event.getEntity()), 2 + random.nextInt(3));
-                            if(ModConfig.general.pendantCooldown > 0) ((EntityPlayer)event.getEntity()).getCooldownTracker().setCooldown(ModItems.THORN_PENDANT, ModConfig.general.pendantCooldown);
+                            if (ModConfig.general.pendantCooldown > 0)
+                                ((EntityPlayer) event.getEntity()).getCooldownTracker().setCooldown(ModItems.THORN_PENDANT, ModConfig.general.pendantCooldown);
                         }
                     }
                 }
@@ -126,29 +116,28 @@ public class BaubleAmulet extends BaubleBase {
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
-        if(!event.getEntityLiving().world.isRemote && event.getSource().getTrueSource() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer)event.getSource().getTrueSource();
+        if (!event.getEntityLiving().world.isRemote && event.getSource().getTrueSource() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
             int amuletSlot = 0;
             ItemStack amuletStack = ItemStack.EMPTY;
 
-            for(int slot : BaubleType.AMULET.getValidSlots()) {
+            for (int slot : BaubleType.TRINKET.getValidSlots()) {
                 ItemStack stack = BaublesApi.getBaublesHandler(player).getStackInSlot(slot);
-                if(stack.getItem() == ModItems.SACRIFICIAL_AMULET) {
+                if (stack.getItem() == ModItems.SACRIFICIAL_AMULET) {
                     amuletSlot = slot;
                     amuletStack = stack;
                     break;
                 }
             }
-            if(amuletStack == ItemStack.EMPTY) return;
+            if (amuletStack == ItemStack.EMPTY) return;
 
-            if(amuletStack.getTagCompound() == null) amuletStack.setTagCompound(new NBTTagCompound());
+            if (amuletStack.getTagCompound() == null) amuletStack.setTagCompound(new NBTTagCompound());
             int kills = amuletStack.getTagCompound().getInteger("Sacrificial Amulet Charge") + 1;
-            if(kills >= ModConfig.general.sacrificialCharge) {
+            if (kills >= ModConfig.general.sacrificialCharge) {
                 BaublesApi.getBaublesHandler(player).setStackInSlot(amuletSlot, ItemStack.EMPTY);
                 player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ITEM_TOTEM_USE, SoundCategory.PLAYERS, 0.5F, 0.8F + player.getRNG().nextFloat() * 0.4F);
                 dropSacrificeReward(player);
-            }
-            else amuletStack.getTagCompound().setInteger("Sacrificial Amulet Charge", kills);
+            } else amuletStack.getTagCompound().setInteger("Sacrificial Amulet Charge", kills);
         }
     }
 
@@ -156,14 +145,28 @@ public class BaubleAmulet extends BaubleBase {
         ResourceLocation resourcelocation = ModLootTables.SACRIFICIAL_REWARD;
 
         LootTable loottable = player.world.getLootTableManager().getLootTableFromLocation(resourcelocation);
-        LootContext.Builder builder = (new LootContext.Builder((WorldServer)player.world)).withPlayer(player).withLuck(player.getLuck());
+        LootContext.Builder builder = (new LootContext.Builder((WorldServer) player.world)).withPlayer(player).withLuck(player.getLuck());
 
-        for(ItemStack itemstack : loottable.generateLootForPools(player.getRNG(), builder.build())) {
-            if(!itemstack.isEmpty()) {
+        for (ItemStack itemstack : loottable.generateLootForPools(player.getRNG(), builder.build())) {
+            if (!itemstack.isEmpty()) {
                 EntityItem entityitem = new EntityItem(player.world, player.posX, player.posY + 0.5, player.posZ, itemstack);
                 entityitem.setDefaultPickupDelay();
                 player.world.spawnEntity(entityitem);
             }
+        }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings("deprecation")
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        if (stack.getItem() == ModItems.SACRIFICIAL_AMULET && ModConfig.general.sacrificialTooltip && stack.getTagCompound() != null && (GuiScreen.isShiftKeyDown() || ModConfig.client.alwaysShowTooltip)) {
+            tooltip.add(TextFormatting.DARK_RED +
+                    I18n.translateToLocal("tooltip." + Artifacts.MODID + "." + name + ".charge") +
+                    ": " +
+                    (ModConfig.general.sacrificialVisible ? "" : TextFormatting.OBFUSCATED) +
+                    stack.getTagCompound().getInteger("Sacrificial Amulet Charge") + (ModConfig.general.sacrificialChargeShowTotal ? " / " + ModConfig.general.sacrificialCharge : ""));
         }
     }
 }

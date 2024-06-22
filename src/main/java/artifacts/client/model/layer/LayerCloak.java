@@ -23,7 +23,9 @@ public class LayerCloak extends LayerBauble {
 
     private static final ModelCloak CLOAK_MODEL = new ModelCloak();
 
-    public LayerCloak(RenderPlayer renderPlayer) { super(renderPlayer); }
+    public LayerCloak(RenderPlayer renderPlayer) {
+        super(renderPlayer);
+    }
 
     @Override
     protected void renderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
@@ -31,13 +33,14 @@ public class LayerCloak extends LayerBauble {
     }
 
     private void renderChest(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if(BaublesApi.isBaubleEquipped(player, ModItems.STAR_CLOAK) == -1 || !RenderHelper.shouldRenderInSlot(player, EntityEquipmentSlot.CHEST)) return;
+        if (BaublesApi.isBaubleEquipped(player, ModItems.STAR_CLOAK) == -1 || !RenderHelper.shouldRenderInSlot(player, EntityEquipmentSlot.CHEST))
+            return;
         ItemStack stack = BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.BODY.getValidSlots()[0]);
-        if(stack.getItem() != ModItems.STAR_CLOAK || !RenderHelper.shouldItemStackRender(player, stack)) return;
-        if(player.isSneaking()) GlStateManager.translate(0, 0.2F, 0);
+        if (stack.getItem() != ModItems.STAR_CLOAK || !RenderHelper.shouldItemStackRender(player, stack)) return;
+        if (player.isSneaking()) GlStateManager.translate(0, 0.2F, 0);
         boolean hoodUp = RenderHelper.shouldRenderInSlot(player, EntityEquipmentSlot.HEAD) &&
                 (BaublesApi.isBaubleEquipped(player, ModItems.DRINKING_HAT) == -1 ||
-                !RenderHelper.shouldItemStackRender(player, BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.HEAD.getValidSlots()[0])));
+                        !RenderHelper.shouldItemStackRender(player, BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.HEAD.getValidSlots()[0])));
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(CLOAK_NORMAL);
         renderBody(player, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, hoodUp);

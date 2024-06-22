@@ -32,30 +32,30 @@ public class WorldGenUndergroundChest implements IWorldGenerator {
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-        if(world.getWorldType() == WorldType.FLAT || !whitelistedDimensions.contains(world.provider.getDimension())) return;
+        if (world.getWorldType() == WorldType.FLAT || !whitelistedDimensions.contains(world.provider.getDimension()))
+            return;
 
-        for(double chestChance = ModConfig.general.undergroundChestChance; chestChance > 0; chestChance--) {
-            if(random.nextDouble() <= chestChance) generateChest(world, random, chunkX, chunkZ);
+        for (double chestChance = ModConfig.general.undergroundChestChance; chestChance > 0; chestChance--) {
+            if (random.nextDouble() <= chestChance) generateChest(world, random, chunkX, chunkZ);
         }
     }
 
     private void generateChest(World world, Random random, int chunkX, int chunkZ) {
         BlockPos pos = getFirstTopSolidBlock(world, new BlockPos(chunkX * 16 + 8 + random.nextInt(16), ModConfig.general.undergroundChestBottomUp ? 1 : ModConfig.general.undergroundChestMaxY, chunkZ * 16 + 8 + random.nextInt(16)), ModConfig.general.undergroundChestBottomUp);
 
-        if(pos != null) {
-            if(random.nextDouble() < ModConfig.general.undergroundChestMimicRatio) {
+        if (pos != null) {
+            if (random.nextDouble() < ModConfig.general.undergroundChestMimicRatio) {
                 EntityMimic mimic = new EntityMimic(world);
                 mimic.setPositionAndRotation(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, random.nextInt(4) * 90, 0);
-                mimic.setDormant(true);
+                mimic.setDormant();
                 mimic.enablePersistence();
                 world.spawnEntity(mimic);
-            }
-            else {
+            } else {
                 world.setBlockState(pos, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[random.nextInt(4)]), 2);
                 TileEntity tileentity = world.getTileEntity(pos);
 
                 if (tileentity instanceof TileEntityChest) {
-                    ((TileEntityChest)tileentity).setLootTable(ModLootTables.CHEST_UNDERGROUND, random.nextLong());
+                    ((TileEntityChest) tileentity).setLootTable(ModLootTables.CHEST_UNDERGROUND, random.nextLong());
                 }
             }
         }
@@ -63,17 +63,16 @@ public class WorldGenUndergroundChest implements IWorldGenerator {
 
     @Nullable
     private BlockPos getFirstTopSolidBlock(World world, BlockPos pos, boolean upwards) {
-        if(upwards) {
-            while(pos.getY() <= ModConfig.general.undergroundChestMaxY) {
+        if (upwards) {
+            while (pos.getY() <= ModConfig.general.undergroundChestMaxY) {
                 IBlockState downState = world.getBlockState(pos.down());
-                if(downState.isSideSolid(world, pos.down(), EnumFacing.UP) && world.isAirBlock(pos)) return pos;
+                if (downState.isSideSolid(world, pos.down(), EnumFacing.UP) && world.isAirBlock(pos)) return pos;
                 pos = pos.up();
             }
-        }
-        else {
-            while(pos.getY() > 1) {
+        } else {
+            while (pos.getY() > 1) {
                 IBlockState downState = world.getBlockState(pos.down());
-                if(downState.isSideSolid(world, pos.down(), EnumFacing.UP) && world.isAirBlock(pos)) return pos;
+                if (downState.isSideSolid(world, pos.down(), EnumFacing.UP) && world.isAirBlock(pos)) return pos;
                 pos = pos.down();
             }
         }

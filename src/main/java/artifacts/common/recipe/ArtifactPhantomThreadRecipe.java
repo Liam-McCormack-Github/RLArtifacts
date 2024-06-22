@@ -23,10 +23,10 @@ public class ArtifactPhantomThreadRecipe extends IForgeRegistryEntry.Impl<IRecip
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
         Integer[] slots = validInput(inv);
-        if(slots==null) return ItemStack.EMPTY;
+        if (slots == null) return ItemStack.EMPTY;
 
         ItemStack stack = inv.getStackInSlot(slots[0]).copy();
-        if(stack.getTagCompound() == null) stack.setTagCompound(new NBTTagCompound());
+        if (stack.getTagCompound() == null) stack.setTagCompound(new NBTTagCompound());
         stack.getTagCompound().setBoolean("phantom_thread_invisible", !stack.getTagCompound().getBoolean("phantom_thread_invisible"));
 
         return stack;
@@ -49,19 +49,19 @@ public class ArtifactPhantomThreadRecipe extends IForgeRegistryEntry.Impl<IRecip
         int threadSlot = -1;
         List<Integer> occupiedSlots = new ArrayList<>();
 
-        for(int i = 0; i < inv.getSizeInventory(); i++) {
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
             if (!inv.getStackInSlot(i).isEmpty()) {
                 numStacks++;
                 occupiedSlots.add(i);
             }
         }
-        if(numStacks != 2) return null;
+        if (numStacks != 2) return null;
 
-        for(int i : occupiedSlots) {
+        for (int i : occupiedSlots) {
             ItemStack itemStack = inv.getStackInSlot(i);
 
-            if(itemStack.getItem() instanceof BaubleBase) artifactSlot = i;
-            else if(itemStack.getItem().equals(ClassyHatsContent.INSTANCE.getPHANTOM_THREAD())) threadSlot = i;
+            if (itemStack.getItem() instanceof BaubleBase) artifactSlot = i;
+            else if (itemStack.getItem().equals(ClassyHatsContent.INSTANCE.getPHANTOM_THREAD())) threadSlot = i;
             else return null;
         }
         Integer[] slots = new Integer[2];

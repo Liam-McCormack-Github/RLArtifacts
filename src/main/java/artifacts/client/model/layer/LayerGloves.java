@@ -57,15 +57,14 @@ public class LayerGloves extends LayerBauble {
     }
 
     private void renderArm(EnumHandSide hand, @Nonnull EntityPlayer player, boolean overlay, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if(!setTextures(player, hand, overlay)) return;
+        if (!setTextures(player, hand, overlay)) return;
 
-        if(hand == EnumHandSide.LEFT) {
+        if (hand == EnumHandSide.LEFT) {
             modelPlayer.bipedLeftArm.showModel = true;
             modelPlayer.bipedLeftArmwear.showModel = true;
             modelPlayer.bipedRightArm.showModel = false;
             modelPlayer.bipedRightArmwear.showModel = false;
-        }
-        else {
+        } else {
             modelPlayer.bipedLeftArm.showModel = false;
             modelPlayer.bipedLeftArmwear.showModel = false;
             modelPlayer.bipedRightArm.showModel = true;
@@ -74,11 +73,10 @@ public class LayerGloves extends LayerBauble {
 
         modelPlayer.render(player, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 
-        if(hand == EnumHandSide.LEFT) {
+        if (hand == EnumHandSide.LEFT) {
             modelPlayer.bipedLeftArmwear.showModel = false;
             modelPlayer.bipedLeftArm.showModel = false;
-        }
-        else {
+        } else {
             modelPlayer.bipedRightArmwear.showModel = false;
             modelPlayer.bipedRightArm.showModel = false;
         }
@@ -86,7 +84,7 @@ public class LayerGloves extends LayerBauble {
 
     private boolean setTextures(EntityPlayer player, EnumHandSide hand, boolean overlay) {
         ItemStack stack = BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.RING.getValidSlots()[hand == EnumHandSide.LEFT ? 0 : 1]);
-        if(!RenderHelper.shouldItemStackRender(player, stack)) return false;
+        if (!RenderHelper.shouldItemStackRender(player, stack)) return false;
         ResourceLocation textures = overlay ? getOverlayTextures(stack) : getTextures(stack);
         if (textures != null) {
             Minecraft.getMinecraft().getTextureManager().bindTexture(textures);

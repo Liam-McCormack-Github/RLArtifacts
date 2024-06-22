@@ -17,8 +17,17 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class BaubleBubbleWrap extends BaubleBase {
 
     public BaubleBubbleWrap() {
-        super("bubble_wrap", BaubleType.BELT);
+        super("bubble_wrap", BaubleType.TRINKET);
         setMaxDamage(0);
+    }
+
+    @SubscribeEvent
+    public static void onLivingHurt(LivingHurtEvent event) {
+        if (event.getSource() == DamageSource.FLY_INTO_WALL && event.getEntityLiving() instanceof EntityPlayer) {
+            if (BaublesApi.isBaubleEquipped((EntityPlayer) event.getEntityLiving(), ModItems.BUBBLE_WRAP) != -1) {
+                event.setCanceled(true);
+            }
+        }
     }
 
     @Override
@@ -29,20 +38,11 @@ public class BaubleBubbleWrap extends BaubleBase {
 
     @Override
     public void onWornTick(ItemStack stack, EntityLivingBase player) {
-        if(stack.getMetadata() == 1 && !player.isSneaking()) stack.setItemDamage(0);
-        else if(stack.getMetadata() == 0 && player.isSneaking()) {
+        if (stack.getMetadata() == 1 && !player.isSneaking()) stack.setItemDamage(0);
+        else if (stack.getMetadata() == 0 && player.isSneaking()) {
             stack.setItemDamage(1);
-            if(player.getRNG().nextInt(3) == 0) {
+            if (player.getRNG().nextInt(3) == 0) {
                 player.playSound(ModSoundEvents.BUBBLE_WRAP, 1, 0.9F + player.getRNG().nextFloat() * 0.2F);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onLivingHurt(LivingHurtEvent event) {
-        if(event.getSource() == DamageSource.FLY_INTO_WALL && event.getEntityLiving() instanceof EntityPlayer) {
-            if(BaublesApi.isBaubleEquipped((EntityPlayer)event.getEntityLiving(), ModItems.BUBBLE_WRAP) != -1) {
-                event.setCanceled(true);
             }
         }
     }

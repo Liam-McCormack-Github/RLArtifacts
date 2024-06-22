@@ -10,8 +10,8 @@ public abstract class RenderHelper {
         ItemStack stack = player.getItemStackFromSlot(slot);
         return stack.isEmpty() ||
                 (stack.getTagCompound() != null &&
-                stack.getTagCompound().getBoolean("classy_hat_invisible") &&
-                stack.getTagCompound().getCompoundTag("classy_hat_disguise").isEmpty());
+                        stack.getTagCompound().getBoolean("classy_hat_invisible") &&
+                        stack.getTagCompound().getCompoundTag("classy_hat_disguise").isEmpty());
     }
 
     public static boolean shouldItemStackRender(EntityPlayer player, ItemStack stack) {

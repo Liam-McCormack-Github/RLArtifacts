@@ -19,6 +19,17 @@ item.artifacts.bubble_wrap.name=Bubble Wrap
 item.artifacts.sacrificial_amulet.name=Sacrificial Amulet
 item.artifacts.lucky_clover.name=Lucky Clover
 
+item.artifacts.forbidden_fruit.name=Forbidden Fruit
+item.artifacts.vitamins.name=Vitamins
+item.artifacts.sunglasses.name=Sunglasses
+item.artifacts.shulker_heart.name=Shulker Heart
+item.artifacts.black_dragon_scale.name=Black Dragon Scale
+item.artifacts.bezoar.name=Bezoar
+item.artifacts.mixed_colour_dragon_scale.name=Mixed Color Dragon Scale
+
+item.artifacts.overcloking_ring.name=Ring of Overclocking
+item.artifacts.ring_of_free_action.name=Ring of Free Action
+
 item.artifacts.shiny_red_balloon.name=Shiny Red Balloon
 item.artifacts.snorkel.name=Snorkel
 item.artifacts.lucky_horseshoe.name=Lucky Horseshoe
@@ -48,6 +59,17 @@ tooltip.artifacts.antidote_vessel.name=When worn, reduces the maximum duration a
 tooltip.artifacts.bubble_wrap.name=When worn, prevents collision damage
 tooltip.artifacts.sacrificial_amulet.name=The amulet thirsts for more
 tooltip.artifacts.lucky_clover.name=Makes you feel slightly luckier
+
+tooltip.artifacts.forbidden_fruit.name=Grants immunity to hunger status effect, and nausea
+tooltip.artifacts.vitamins.name=Grants immunity to weakness and mining fatigue
+tooltip.artifacts.sunglasses.name=Grants immunity to blindness
+tooltip.artifacts.shulker_heart.name=Grants immunity to levitation
+tooltip.artifacts.black_dragon_scale.name=Grants immunity to withering
+tooltip.artifacts.bezoar.name=Grants immunity to poison
+tooltip.artifacts.mixed_colour_dragon_scale.name=Grants immunity to poison and withering
+
+tooltip.artifacts.overcloking_ring.name=Grants immunity to slowness and a base movement speed increase
+tooltip.artifacts.ring_of_free_action.name=Grants immunity to slowness, levitation and a base movement speed increase
 
 tooltip.artifacts.shiny_red_balloon.name=Allows the wearer to jump higher
 tooltip.artifacts.snorkel.name=Allows the wearer to breathe underwater

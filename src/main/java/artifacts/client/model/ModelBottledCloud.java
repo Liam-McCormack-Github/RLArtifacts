@@ -48,9 +48,9 @@ public class ModelBottledCloud extends ModelBase {
         belt.render(scale);
         GlStateManager.scale(1, 1, hasPants ? 1 / 1.2F : 1 / 1.1F);
 
-        GlStateManager.scale(1/2F, 1/2F, 1/2F);
-        GlStateManager.translate(0, 1, -2/3F);
-        GlStateManager.translate(1/5F, 0, 0);
+        GlStateManager.scale(1 / 2F, 1 / 2F, 1 / 2F);
+        GlStateManager.translate(0, 1, -2 / 3F);
+        GlStateManager.translate(1 / 5F, 0, 0);
         GlStateManager.rotate(-15, 0, 1, 0);
 
         jar.render(scale);
@@ -59,17 +59,17 @@ public class ModelBottledCloud extends ModelBase {
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GlStateManager.color(1, 1, 1, 0.5F);
-        GlStateManager.translate(3.5F/16F, 4.5F/16F, 3.5F/16F);
+        GlStateManager.translate(3.5F / 16F, 4.5F / 16F, 3.5F / 16F);
 
         GlStateManager.pushMatrix();
-        GlStateManager.translate(0, 1/16F * Math.sin(0.05 * (entity.ticksExisted + partialticks)), 0);
+        GlStateManager.translate(0, 1 / 16F * Math.sin(0.05 * (entity.ticksExisted + partialticks)), 0);
         GlStateManager.scale(1 + 0.1F * Math.sin(0.03 * (entity.ticksExisted + partialticks)),
                 0.8F + 0.1F * Math.sin(0.032 * (entity.ticksExisted + partialticks)),
                 0.8F + 0.1F * Math.sin(0.034 * (entity.ticksExisted + partialticks)));
         cloud2.render(scale);
         GlStateManager.popMatrix();
 
-        GlStateManager.translate(0, 1/16F * Math.sin(0.05 * (entity.ticksExisted + partialticks) + 0.5), 0);
+        GlStateManager.translate(0, 1 / 16F * Math.sin(0.05 * (entity.ticksExisted + partialticks) + 0.5), 0);
         GlStateManager.scale(1 + 0.1F * Math.sin(0.033 * (entity.ticksExisted + partialticks)),
                 0.8F + 0.1F * Math.sin(0.031 * (entity.ticksExisted + partialticks)),
                 0.8F + 0.1F * Math.sin(0.034 * (entity.ticksExisted + partialticks)));

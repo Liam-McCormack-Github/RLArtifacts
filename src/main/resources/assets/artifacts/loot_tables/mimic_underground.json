@@ -7,82 +7,147 @@
         {
           "type": "item",
           "name": "artifacts:thorn_pendant",
-          "weight": 3
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:flame_pendant",
-          "weight": 3
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:shock_pendant",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:panic_necklace",
-          "weight": 3
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:magma_stone",
-          "weight": 3
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:feral_claws",
-          "weight": 3
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:power_glove",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:bottled_cloud",
-          "weight": 3
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:star_cloak",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:pocket_piston",
-          "weight": 3
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:whoopie_cushion",
-          "weight": 3
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:drinking_hat",
-          "weight": 3
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:antidote_vessel",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:bubble_wrap",
-          "weight": 3
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:sacrificial_amulet",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "item",
           "name": "artifacts:lucky_clover",
-          "weight": 3
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:snorkel",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:obsidian_skull",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:cobalt_shield",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:lucky_horseshoe",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:shiny_red_balloon",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:night_vision_goggles",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:forbidden_fruit",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:vitamins",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:sunglasses",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:shulker_heart",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:black_dragon_scale",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:bezoar",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "artifacts:overcloking_ring",
+          "weight": 1
         }
       ]
     }

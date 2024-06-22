@@ -19,8 +19,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class Artifacts {
 
     public static final String MODID = "artifacts";
-    public static final String MODNAME = "RLArtifacts";
-    public static final String VERSION = "1.1.2";
+    public static final String MODNAME = "Artifacts";
+    public static final String VERSION = "1.12.2";
 
     public static final CreativeTabs ARTIFACTS_TAB = new ArtifactTab();
 
@@ -80,6 +80,8 @@ public class Artifacts {
         }
 
         @Override
-        public ItemStack createIcon() { return new ItemStack(ModItems.PANIC_NECKLACE); }
+        public ItemStack createIcon() {
+            return new ItemStack(ModItems.PANIC_NECKLACE);
+        }
     }
 }

@@ -48,18 +48,18 @@ public class AttributeModifierBauble extends BaubleBase {
         IBaublesItemHandler baublesHandler = BaublesApi.getBaublesHandler(player);
         Set<ExtendedAttributeModifier> modifiers = new HashSet<>();
 
-        for(int slot : BaubleType.TRINKET.getValidSlots()) {
+        for (int slot : BaubleType.TRINKET.getValidSlots()) {
             ItemStack stack = baublesHandler.getStackInSlot(slot);
-            if(stack.getItem() instanceof AttributeModifierBauble && stack != excludedStack) {
+            if (stack.getItem() instanceof AttributeModifierBauble && stack != excludedStack) {
                 modifiers.addAll(((AttributeModifierBauble) stack.getItem()).attributeModifiers);
             }
         }
 
         modifiers.retainAll(attributeModifiers);
 
-        for(ExtendedAttributeModifier modifier : attributeModifiers) {
+        for (ExtendedAttributeModifier modifier : attributeModifiers) {
             IAttributeInstance instance = player.getAttributeMap().getAttributeInstance(modifier.affectedAttribute);
-            if(instance.getModifier(modifier.id) != null) {
+            if (instance.getModifier(modifier.id) != null) {
                 instance.removeModifier(modifier.id);
             }
         }
@@ -67,7 +67,7 @@ public class AttributeModifierBauble extends BaubleBase {
         //Allow stacking the same type of baubles, since you can stack different types
         int amount = BaubleHelper.getAmountBaubleEquipped(player, this);
 
-        for(ExtendedAttributeModifier modifier : modifiers) {
+        for (ExtendedAttributeModifier modifier : modifiers) {
             player.getAttributeMap().getAttributeInstance(modifier.affectedAttribute).applyModifier(new AttributeModifier(modifier.id, modifier.name, modifier.getValue() * amount, modifier.getOperation()));
         }
     }
@@ -86,16 +86,23 @@ public class AttributeModifierBauble extends BaubleBase {
 
         //Yea, not as simply expandable as before, but atleast it will actually use the config values
         public double getValue() {
-            if(this.affectedAttribute == SharedMonsterAttributes.ATTACK_DAMAGE) return ModConfig.general.attackDamageBoost;
-            if(this.affectedAttribute == SharedMonsterAttributes.ATTACK_SPEED)  return ModConfig.general.attackSpeedBoost;
-            if(this.affectedAttribute == SharedMonsterAttributes.LUCK)          return ModConfig.general.luckBoost;
+            if (this.affectedAttribute == SharedMonsterAttributes.ATTACK_DAMAGE)
+                return ModConfig.general.attackDamageBoost;
+            if (this.affectedAttribute == SharedMonsterAttributes.ATTACK_SPEED)
+                return ModConfig.general.attackSpeedBoost;
+            if (this.affectedAttribute == SharedMonsterAttributes.LUCK) return ModConfig.general.luckBoost;
+            if (this.affectedAttribute == SharedMonsterAttributes.MOVEMENT_SPEED) return ModConfig.general.speedBoost;
             return 0;
         }
 
         public int getOperation() {
-            if(this.affectedAttribute == SharedMonsterAttributes.ATTACK_DAMAGE) return ModConfig.general.attackDamageOperation;
-            if(this.affectedAttribute == SharedMonsterAttributes.ATTACK_SPEED)  return ModConfig.general.attackSpeedOperation;
-            if(this.affectedAttribute == SharedMonsterAttributes.LUCK)          return ModConfig.general.luckOperation;
+            if (this.affectedAttribute == SharedMonsterAttributes.ATTACK_DAMAGE)
+                return ModConfig.general.attackDamageOperation;
+            if (this.affectedAttribute == SharedMonsterAttributes.ATTACK_SPEED)
+                return ModConfig.general.attackSpeedOperation;
+            if (this.affectedAttribute == SharedMonsterAttributes.LUCK) return ModConfig.general.luckOperation;
+            if (this.affectedAttribute == SharedMonsterAttributes.MOVEMENT_SPEED)
+                return ModConfig.general.speedOperation;
             return 0;
         }
     }

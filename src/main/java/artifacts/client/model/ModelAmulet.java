@@ -24,7 +24,7 @@ public class ModelAmulet extends ModelBase {
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float scale) {
         GlStateManager.translate(0, -0.02, 0);
-        GlStateManager.scale(7/6F, 7/6F, 7/6F);
+        GlStateManager.scale(7 / 6F, 7 / 6F, 7 / 6F);
         this.boxChain.render(scale);
         GlStateManager.scale(1, 1, 0.5F);
         this.boxGem.render(scale);

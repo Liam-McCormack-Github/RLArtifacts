@@ -56,15 +56,15 @@ public class ModelObsidianSkull extends ModelBase {
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float scale) {
         boolean hasPants = !((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.LEGS).isEmpty();
 
-        GlStateManager.scale(7/6F, 7/6F, 7/6F);
+        GlStateManager.scale(7 / 6F, 7 / 6F, 7 / 6F);
 
         GlStateManager.scale(1, 1, hasPants ? 1.2F : 1.1F);
         belt.render(scale);
-        GlStateManager.scale(1, 1, hasPants ? 1/1.2F : 1/1.1F);
+        GlStateManager.scale(1, 1, hasPants ? 1 / 1.2F : 1 / 1.1F);
 
-        GlStateManager.scale(1/2F, 1/2F, 1/2F);
-        GlStateManager.translate(0, 1, -1/2F);
-        GlStateManager.translate(1/5F, 0, 0);
+        GlStateManager.scale(1 / 2F, 1 / 2F, 1 / 2F);
+        GlStateManager.translate(0, 1, -1 / 2F);
+        GlStateManager.translate(1 / 5F, 0, 0);
         GlStateManager.rotate(-25, 0, 1, 0);
 
         skull1.render(scale);

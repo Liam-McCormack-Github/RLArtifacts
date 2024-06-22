@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "artifacts:black_dragon_scale"
+    },
+    {
+      "item": "artifacts:bezoar"
+    }
+  ],
+  "result": {
+    "item": "artifacts:mixed_colour_dragon_scale"
+  }
+}

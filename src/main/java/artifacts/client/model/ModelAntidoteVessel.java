@@ -39,9 +39,9 @@ public class ModelAntidoteVessel extends ModelBase {
         belt.render(scale);
         GlStateManager.scale(1, 1, hasPants ? 1 / 1.2F : 1 / 1.1F);
 
-        GlStateManager.scale(1/2F, 1/2F, 1/2F);
-        GlStateManager.translate(0, 1, -2/3F);
-        GlStateManager.translate(1/5F, 0, 0);
+        GlStateManager.scale(1 / 2F, 1 / 2F, 1 / 2F);
+        GlStateManager.translate(0, 1, -2 / 3F);
+        GlStateManager.translate(1 / 5F, 0, 0);
         GlStateManager.rotate(-15, 0, 1, 0);
 
         jar.render(scale);

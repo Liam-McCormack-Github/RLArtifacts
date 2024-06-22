@@ -59,11 +59,11 @@ public class ModelCloak extends ModelBase {
 
     public void renderCloak(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, boolean renderHood) {
         cloak.render(f5);
-        if(!renderHood) hoodDown.render(f5);
+        if (!renderHood) hoodDown.render(f5);
     }
 
     public void renderHood(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, boolean renderHood) {
-        if(renderHood) hoodUp.render(f5);
+        if (renderHood) hoodUp.render(f5);
     }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {

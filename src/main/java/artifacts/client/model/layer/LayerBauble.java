@@ -28,7 +28,7 @@ public abstract class LayerBauble implements LayerRenderer<EntityPlayer> {
 
     @Override
     public final void doRenderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if(!Config.renderBaubles || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null) return;
+        if (!Config.renderBaubles || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null) return;
 
         GlStateManager.enableLighting();
         GlStateManager.enableRescaleNormal();

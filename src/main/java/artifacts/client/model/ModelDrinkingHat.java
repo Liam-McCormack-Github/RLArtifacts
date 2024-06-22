@@ -58,14 +58,13 @@ public class ModelDrinkingHat extends ModelBase {
 
     @Override
     public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if(!(entity instanceof EntityPlayer)) return;
-        EntityPlayer player = (EntityPlayer)entity;
+        if (!(entity instanceof EntityPlayer)) return;
+        EntityPlayer player = (EntityPlayer) entity;
 
-        if(player.getName().equals("wouterke")) {
+        if (player.getName().equals("wouterke")) {
             Minecraft.getMinecraft().getTextureManager().bindTexture(SPECIAL_TEXTURES);
             hatShade.showModel = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
-        }
-        else {
+        } else {
             Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURES);
             hatShade.showModel = false;
         }

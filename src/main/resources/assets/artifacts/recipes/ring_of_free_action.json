@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "artifacts:overcloking_ring"
+    },
+    {
+      "item": "artifacts:shulker_heart"
+    }
+  ],
+  "result": {
+    "item": "artifacts:ring_of_free_action"
+  }
+}
